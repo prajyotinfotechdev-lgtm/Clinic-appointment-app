@@ -1,6 +1,10 @@
 import { api } from "./api";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    (process.env.NODE_ENV === "production"
+        ? "https://clinic-appointment-app-production-320a.up.railway.app/api"
+        : "http://localhost:5000/api");
 
 /**
  * Convert a base64 string to Uint8Array for VAPID key

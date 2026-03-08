@@ -20,9 +20,17 @@ module.exports = {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackUrl: process.env.GOOGLE_CALLBACK_URL,
+    callbackUrl:
+      process.env.GOOGLE_CALLBACK_URL ||
+      (process.env.NODE_ENV === 'production'
+        ? 'https://clinic-appointment-app-production-320a.up.railway.app/api/auth/google/callback'
+        : 'http://localhost:5000/api/auth/google/callback'),
   },
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
+  frontendUrl:
+    process.env.FRONTEND_URL ||
+    (process.env.NODE_ENV === 'production'
+      ? 'https://easygoing-rejoicing-production.up.railway.app'
+      : 'http://localhost:3000'),
   twilio: {
     accountSid: process.env.TWILIO_ACCOUNT_SID,
     authToken: process.env.TWILIO_AUTH_TOKEN,
