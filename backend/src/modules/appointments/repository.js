@@ -35,9 +35,12 @@ class AppointmentRepository {
      * appointments for a specific doctor on a specific date.
      */
     async findByDoctorAndDate(doctorId, date) {
-        const startDate = new Date(date);
-        const endDate = new Date(date);
-        endDate.setDate(endDate.getDate() + 1);
+        const dateStr = typeof date === 'string'
+            ? date.slice(0, 10)
+            : new Date(date).toISOString().split('T')[0];
+        const startDate = new Date(`${dateStr}T00:00:00.000Z`);
+        const endDate = new Date(startDate);
+        endDate.setUTCDate(endDate.getUTCDate() + 1);
 
         return prisma.appointment.findMany({
             where: {

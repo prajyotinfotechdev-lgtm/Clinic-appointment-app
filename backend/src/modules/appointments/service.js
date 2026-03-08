@@ -120,20 +120,25 @@ class AppointmentService {
             throw new AppError('Doctor ID and Date are required', 400);
         }
 
+        const targetDateStr =
+            typeof date === 'string'
+                ? date.slice(0, 10)
+                : new Date(date).toISOString().split('T')[0];
+
+        const targetDateUtc = new Date(`${targetDateStr}T00:00:00.000Z`);
+        if (isNaN(targetDateUtc.getTime())) {
+            throw new AppError('Invalid date format provided', 400);
+        }
+
         const settings = await clinicSettingsService.getSettingsByDoctor(doctorId);
 
         if (!settings) {
             throw new AppError('Doctor has not configured clinic settings', 404);
         }
 
-        const targetDate = new Date(date);
-        if (isNaN(targetDate.getTime())) {
-            throw new AppError('Invalid date format provided', 400);
-        }
-
         // Use IST (India Standard Time) for all comparisons to handle same-day booking correctly
         const now = new Date();
-        const istDateFormatter = new Intl.DateTimeFormat('en-CA', { // en-CA gives YYYY-MM-DD
+        const istDateFormatter = new Intl.DateTimeFormat('en-CA', {
             timeZone: 'Asia/Kolkata',
             year: 'numeric',
             month: '2-digit',
@@ -146,23 +151,20 @@ class AppointmentService {
             hour12: false
         });
 
-        const todayStr = istDateFormatter.format(now);
+        const todayParts = istDateFormatter.formatToParts(now);
+        const todayYear = todayParts.find((p) => p.type === 'year')?.value;
+        const todayMonth = todayParts.find((p) => p.type === 'month')?.value;
+        const todayDay = todayParts.find((p) => p.type === 'day')?.value;
+        const todayStr = `${todayYear}-${todayMonth}-${todayDay}`;
         const currentTimeStr = istTimeFormatter.format(now);
-        const targetDateStr = targetDate.toISOString().split('T')[0];
         const isToday = targetDateStr === todayStr;
 
-        // To get the start of today in IST, we format 'now' to IST date string and then parse it.
-        // This ensures 'startOfToday' is a Date object representing 00:00:00 IST for the current day.
-        const istTodayDate = new Date(istDateFormatter.format(now));
-        const startOfToday = new Date(istTodayDate);
-        startOfToday.setHours(0, 0, 0, 0);
-
-        if (targetDate < startOfToday) {
+        if (targetDateStr < todayStr) {
             return [];
         }
 
         // Check Working Days (1=Mon, 7=Sun)
-        const dayOfWeek = targetDate.getDay() === 0 ? 7 : targetDate.getDay();
+        const dayOfWeek = targetDateUtc.getUTCDay() === 0 ? 7 : targetDateUtc.getUTCDay();
         let rawWorkingDays = [1, 2, 3, 4, 5, 6, 7];
 
         if (Array.isArray(settings.workingDays)) {
@@ -204,7 +206,7 @@ class AppointmentService {
         }
 
         console.log('Fetching booked appointments...');
-        const appointments = await appointmentRepository.findByDoctorAndDate(doctorId, date);
+        const appointments = await appointmentRepository.findByDoctorAndDate(doctorId, targetDateStr);
         const bookedSlots = appointments.map(a => a.timeSlot);
         console.log('Booked slots:', bookedSlots);
 
@@ -212,16 +214,13 @@ class AppointmentService {
         const [startHour, startMin] = settings.clinicStartTime.split(':').map(Number);
         const [endHour, endMin] = settings.clinicEndTime.split(':').map(Number);
 
-        const current = new Date(targetDate);
-        current.setHours(startHour, startMin, 0, 0);
+        const startMinutes = (startHour * 60) + startMin;
+        const endMinutes = (endHour * 60) + endMin;
 
-        const end = new Date(targetDate);
-        end.setHours(endHour, endMin, 0, 0);
-
-        // current already set to start of clinic
-
-        while (current < end) {
-            const slot = current.toTimeString().substring(0, 5);
+        for (let minute = startMinutes; minute < endMinutes; minute += settings.slotDurationMinutes) {
+            const slotHour = String(Math.floor(minute / 60)).padStart(2, '0');
+            const slotMin = String(minute % 60).padStart(2, '0');
+            const slot = `${slotHour}:${slotMin}`;
 
             // Check if slot is in the past (if today)
             const isFutureSlot = !isToday || slot > currentTimeStr;
@@ -236,7 +235,6 @@ class AppointmentService {
             if (!bookedSlots.includes(slot) && isFutureSlot && isActuallyAvailable) {
                 slots.push(slot);
             }
-            current.setMinutes(current.getMinutes() + settings.slotDurationMinutes);
         }
 
         return slots;
