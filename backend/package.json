@@ -9,7 +9,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:studio": "npx prisma studio",
-    "postdeploy": "node seed.js"
+    "postdeploy": "npx prisma migrate deploy && node seed.js"
   },
   "prisma": {
     "seed": "node seed.js"
