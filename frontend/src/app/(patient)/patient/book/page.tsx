@@ -211,9 +211,17 @@ export default function BookAppointment() {
                                     if (!doctorSettings || !doctorSettings.workingDays) return false;
 
                                     const dayOfWeek = d.getDay() === 0 ? 7 : d.getDay();
-                                    const rawWorkingDays = Array.isArray(doctorSettings.workingDays)
-                                        ? doctorSettings.workingDays
-                                        : [];
+                                    let rawWorkingDays: unknown[] = [1, 2, 3, 4, 5, 6, 7];
+                                    if (Array.isArray(doctorSettings.workingDays)) {
+                                        rawWorkingDays = doctorSettings.workingDays;
+                                    } else if (typeof doctorSettings.workingDays === "string") {
+                                        try {
+                                            const parsed = JSON.parse(doctorSettings.workingDays);
+                                            if (Array.isArray(parsed)) rawWorkingDays = parsed;
+                                        } catch {
+                                            // keep defaults
+                                        }
+                                    }
                                     const workingDays = rawWorkingDays
                                         .map((x: unknown) => Number(x))
                                         .filter((x: number) => Number.isFinite(x));

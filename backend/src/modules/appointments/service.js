@@ -163,9 +163,21 @@ class AppointmentService {
 
         // Check Working Days (1=Mon, 7=Sun)
         const dayOfWeek = targetDate.getDay() === 0 ? 7 : targetDate.getDay();
-        const rawWorkingDays = Array.isArray(settings.workingDays)
-            ? settings.workingDays
-            : JSON.parse(settings.workingDays || "[1,2,3,4,5,6,7]");
+        let rawWorkingDays = [1, 2, 3, 4, 5, 6, 7];
+
+        if (Array.isArray(settings.workingDays)) {
+            rawWorkingDays = settings.workingDays;
+        } else if (typeof settings.workingDays === 'string') {
+            try {
+                const parsed = JSON.parse(settings.workingDays);
+                if (Array.isArray(parsed)) {
+                    rawWorkingDays = parsed;
+                }
+            } catch {
+                // keep defaults
+            }
+        }
+
         const workingDays = rawWorkingDays
             .map((d) => Number(d))
             .filter((d) => Number.isFinite(d));
