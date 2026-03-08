@@ -24,8 +24,10 @@ const pushRoutes = require('./modules/push/routes');
 
 const app = express();
 
-// Trust proxy for Railway
-app.set('trust proxy', true);
+// Trust proxy for Railway (only in production)
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+}
 
 // ──────────────────────────────────────────────────────
 // Debug: Log environment variables
@@ -136,6 +138,33 @@ app.get('/api/health', async (_req, res) => {
             status: 'DEGRADED',
             timestamp: new Date().toISOString(),
             database: 'UNREACHABLE',
+        });
+    }
+});
+
+// ──────────────────────────────────────────────────────
+// 5. Manual Migration Endpoint (for Railway)
+// ──────────────────────────────────────────────────────
+app.post('/api/setup-database', async (_req, res) => {
+    try {
+        console.log('🔧 Running database migrations...');
+        const { execSync } = require('child_process');
+        execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+        
+        console.log('🌱 Running seed script...');
+        execSync('node seed.js', { stdio: 'inherit' });
+        
+        res.json({
+            success: true,
+            message: 'Database migrations and seeding completed successfully',
+            timestamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error('❌ Database setup failed:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Database setup failed',
+            error: error.message,
         });
     }
 });
