@@ -25,6 +25,14 @@ const pushRoutes = require('./modules/push/routes');
 const app = express();
 
 // ──────────────────────────────────────────────────────
+// Debug: Log environment variables
+// ──────────────────────────────────────────────────────
+console.log('🔍 Debug - Environment Variables:');
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
+
+// ──────────────────────────────────────────────────────
 // 1. Security Middleware
 // ──────────────────────────────────────────────────────
 app.use(helmet({
