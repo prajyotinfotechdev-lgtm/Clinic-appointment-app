@@ -9,6 +9,12 @@ const { PrismaClient } = require('@prisma/client');
  */
 const globalForPrisma = globalThis;
 
+// Use Railway production database URL if DATABASE_URL is not set or invalid
+const databaseUrl = process.env.DATABASE_URL || 
+    (process.env.NODE_ENV === 'production' 
+        ? 'postgresql://postgres:PtfJLXRfVgNvXSoXlyJpodQvZuTIidqv@clinic-appointment-app.railway.internal:5432/railway'
+        : undefined);
+
 const prisma =
     globalForPrisma.__prisma ||
     new PrismaClient({
@@ -18,7 +24,7 @@ const prisma =
                 : ['error', 'info'],
         datasources: {
             db: {
-                url: process.env.DATABASE_URL,
+                url: databaseUrl,
             },
         },
     });

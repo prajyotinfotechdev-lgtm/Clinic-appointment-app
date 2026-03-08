@@ -32,6 +32,13 @@ console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('FRONTEND_URL:', process.env.FRONTEND_URL);
 
+// Log the actual database URL being used
+const databaseUrl = process.env.DATABASE_URL || 
+    (process.env.NODE_ENV === 'production' 
+        ? 'postgresql://postgres:PtfJLXRfVgNvXSoXlyJpodQvZuTIidqv@clinic-appointment-app.railway.internal:5432/railway'
+        : undefined);
+console.log('🔍 Using Database URL:', databaseUrl ? databaseUrl.replace(/:[^:@]+@/, ':***@') : 'NOT SET');
+
 // ──────────────────────────────────────────────────────
 // 1. Security Middleware
 // ──────────────────────────────────────────────────────
