@@ -2,10 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
+    const backendUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://clinic-appointment-app-production-320a.up.railway.app'
+      : 'http://localhost:5000';
+    
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:5000/api/:path*",
+        destination: `${backendUrl}/api/:path*`,
       },
     ];
   },
