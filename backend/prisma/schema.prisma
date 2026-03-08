@@ -1,0 +1,252 @@
+// ──────────────────────────────────────────────────────────
+// ClinicFlow — Production-Grade PostgreSQL Schema (Prisma)
+// ──────────────────────────────────────────────────────────
+// Data model: separate Patient / Doctor / Receptionist
+// Auth: Google OAuth (patients), email+password (staff)
+// Constraints: no double-booking, unique phones, unique emails
+// ──────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────
+
+enum AppointmentStatus {
+  BOOKED
+  WAITING
+  IN_CONSULTATION
+  COMPLETED
+  CANCELLED
+}
+
+enum NotificationType {
+  SMS
+  EMAIL
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum CreatedByRole {
+  PATIENT
+  RECEPTIONIST
+}
+
+enum AvailabilityType {
+  HOLIDAY
+  UNAVAILABLE
+}
+
+// ─── Models ─────────────────────────────────────────────
+
+/// Clinic — Multi-tenant support
+model Clinic {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  doctors      Doctor[]
+  appointments Appointment[]
+
+  @@map("clinics")
+}
+
+/// Patient — authenticates via Google OAuth, verifies phone after first login
+model Patient {
+  id            String   @id @default(uuid())
+  name          String
+  email         String
+  phone         String   @unique
+  googleId      String   @unique
+  phoneVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  appointments   Appointment[]
+  prescriptions  Prescription[]
+  notifications  Notification[]
+  pushSubscriptions PushSubscription[]
+
+  // Fast lookup by phone (for receptionist search / walk-in matching)
+  @@index([phone], name: "idx_patient_phone")
+  @@map("patients")
+}
+
+/// Doctor — authenticates via email + password (bcrypt)
+model Doctor {
+  id             String   @id @default(uuid())
+  name           String
+  specialization String
+  email          String   @unique
+  passwordHash   String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  clinicId       String?
+  clinic         Clinic?  @relation(fields: [clinicId], references: [id], onDelete: SetNull)
+
+  clinicSettings ClinicSettings?
+  appointments   Appointment[]
+  prescriptions  Prescription[]
+  availability   DoctorAvailability[]
+
+  @@map("doctors")
+}
+
+/// Receptionist — authenticates via email + password (bcrypt)
+model Receptionist {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  @@map("receptionists")
+}
+
+/// Per-doctor clinic schedule (start/end times, slot duration)
+model ClinicSettings {
+  id                  String   @id @default(uuid())
+  clinicStartTime     String   // e.g. "09:00"
+  clinicEndTime       String   // e.g. "17:00"
+  slotDurationMinutes Int      @default(15)
+  workingDays         Json     @default("[1,2,3,4,5]") // 1=Mon, 7=Sun
+  createdAt           DateTime @default(now())
+
+  doctorId String @unique
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@map("clinic_settings")
+}
+
+/// DoctorAvailability — holidays and specific unavailable time slots
+model DoctorAvailability {
+  id               String           @id @default(uuid())
+  type             AvailabilityType @default(UNAVAILABLE)
+  startDate        DateTime         @db.Date
+  endDate          DateTime?        @db.Date
+  startTime        String?          // HH:mm, only for UNAVAILABLE type
+  endTime          String?          // HH:mm, only for UNAVAILABLE type
+  reason           String?
+  createdAt        DateTime         @default(now())
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId, startDate])
+  @@map("doctor_availability")
+}
+
+/// Appointment — the core booking entity
+model Appointment {
+  id              String            @id @default(uuid())
+  appointmentDate DateTime          @db.Date
+  timeSlot        String            // e.g. "10:30" — stored as HH:mm string
+  status          AppointmentStatus @default(BOOKED)
+  createdBy       CreatedByRole     @default(PATIENT)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // ── Pre-Consultation Vitals ──
+  symptoms        String?
+  weight          Float?
+  bloodPressure   String?           // e.g. "120/80"
+  temperature     Float?            // e.g. 98.6
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  clinicId String?
+  clinic   Clinic? @relation(fields: [clinicId], references: [id], onDelete: SetNull)
+
+  prescription Prescription?
+  notification Notification[]
+
+  // ── Constraints ─────────────────────────────────────
+  // Prevent double-booking: same doctor cannot have two appointments
+  // at the same date + time slot
+  @@unique([doctorId, appointmentDate, timeSlot], name: "uniq_doctor_date_slot")
+
+  // ── Performance Indexes ─────────────────────────────
+  // Doctor schedule lookup (all appointments for a doctor on a date)
+  @@index([doctorId, appointmentDate], name: "idx_doctor_date")
+  // Date-based queries across all doctors (daily overview)
+  @@index([appointmentDate, timeSlot], name: "idx_date_slot")
+  // Patient-side queries (my appointments)
+  @@index([patientId], name: "idx_patient_appointments")
+  // Queue / waiting-list queries (filter by status on a date)
+  @@index([status, appointmentDate], name: "idx_status_date")
+
+  @@map("appointments")
+}
+
+/// Prescription — one per appointment, written by the doctor
+model Prescription {
+  id           String    @id @default(uuid())
+  diagnosis    String?
+  medicines    Json      @default("[]") // Array of { name, dosage, frequency, duration }
+  notes        String?
+  followUpDate DateTime? @db.Date
+  createdAt    DateTime  @default(now())
+
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("prescriptions")
+}
+
+/// Notification — SMS / email reminders for appointments
+model Notification {
+  id     String             @id @default(uuid())
+  type   NotificationType
+  status NotificationStatus @default(PENDING)
+  sentAt DateTime?
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+  // Fast lookup: pending notifications to send
+  @@index([status], name: "idx_notification_status")
+  // Join lookup by appointment
+  @@index([appointmentId], name: "idx_notification_appointment")
+  @@map("notifications")
+}
+
+/// Web Push Subscription — stored per device/browser for a patient
+model PushSubscription {
+  id        String   @id @default(uuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId], name: "idx_push_subscription_patient")
+  @@map("push_subscriptions")
+}

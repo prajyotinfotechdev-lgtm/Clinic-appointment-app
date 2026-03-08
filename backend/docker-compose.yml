@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: clinic_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sahu
+      POSTGRES_PASSWORD: sahu_pass
+      POSTGRES_DB: sahu_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - clinic_pgdata:/var/lib/postgresql/data
+
+volumes:
+  clinic_pgdata:
