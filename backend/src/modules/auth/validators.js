@@ -16,6 +16,15 @@ const registerDoctorSchema = Joi.object({
     }),
 });
 
+const completePhoneSchema = Joi.object({
+    phone: Joi.string()
+        .pattern(/^\+?[1-9]\d{6,14}$/)
+        .required()
+        .messages({
+            'string.pattern.base': 'Phone must be a valid international number',
+        }),
+});
+
 // ─── Receptionist Registration ────────────────────────────
 const registerReceptionistSchema = Joi.object({
     name: Joi.string().trim().min(2).max(100).required(),
@@ -63,6 +72,7 @@ module.exports = {
     registerReceptionistSchema,
     loginSchema,
     googleLoginSchema,
+    completePhoneSchema,
     sendOtpSchema,
     verifyOtpSchema,
 };

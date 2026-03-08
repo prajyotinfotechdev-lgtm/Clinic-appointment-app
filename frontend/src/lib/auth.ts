@@ -62,7 +62,7 @@ export function decodeToken(token: string): AuthUser | null {
 export function getDashboardPath(user: AuthUser): string {
     switch (user.role) {
         case "PATIENT":
-            return "/patient/dashboard"; // Bypassed verification for now
+            return user.phoneVerified ? "/patient/dashboard" : "/verify-phone";
         case "DOCTOR":
             return "/doctor/dashboard";
         case "RECEPTIONIST":

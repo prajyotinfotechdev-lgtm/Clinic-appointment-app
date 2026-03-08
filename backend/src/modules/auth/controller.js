@@ -68,6 +68,29 @@ class AuthController {
         }
     }
 
+    async completePhone(req, res, next) {
+        try {
+            const { phone } = req.body;
+
+            const patient = await authService.verifyPatientPhone(
+                req.user.id,
+                phone
+            );
+
+            const { signToken } = require('../../utils/jwt');
+            const jwtToken = signToken({
+                userId: patient.id,
+                role: 'PATIENT',
+                name: patient.name,
+                phoneVerified: patient.phoneVerified,
+            });
+
+            return success(res, { user: patient, token: jwtToken }, 'Phone saved');
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async verifyOtp(req, res, next) {
         try {
             const { phone, accessToken, otp } = req.body;

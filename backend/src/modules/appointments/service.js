@@ -163,9 +163,12 @@ class AppointmentService {
 
         // Check Working Days (1=Mon, 7=Sun)
         const dayOfWeek = targetDate.getDay() === 0 ? 7 : targetDate.getDay();
-        const workingDays = Array.isArray(settings.workingDays)
+        const rawWorkingDays = Array.isArray(settings.workingDays)
             ? settings.workingDays
             : JSON.parse(settings.workingDays || "[1,2,3,4,5,6,7]");
+        const workingDays = rawWorkingDays
+            .map((d) => Number(d))
+            .filter((d) => Number.isFinite(d));
 
         if (!workingDays.includes(dayOfWeek)) {
             return [];

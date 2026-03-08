@@ -27,13 +27,15 @@ class AuthService {
         let patient = await authRepository.findPatientByGoogleId(googleId);
 
         if (!patient) {
+            const googleDigits = (googleId || '').replace(/\D/g, '').slice(-10).padStart(10, '0');
+            const placeholderPhone = `9${googleDigits.slice(-9)}`;
             patient = await authRepository.createPatient({
                 name,
                 email,
                 googleId,
-                // Automatically verify for now
-                phone: `9100000000`,
-                phoneVerified: true,
+                // Placeholder unique phone; patient must verify/update from UI
+                phone: placeholderPhone,
+                phoneVerified: false,
             });
         }
 
@@ -41,10 +43,10 @@ class AuthService {
             userId: patient.id,
             role: 'PATIENT',
             name: patient.name,
-            phoneVerified: true // Always true in JWT for bypass
+            phoneVerified: patient.phoneVerified,
         });
 
-        return { user: patient, token, phoneVerified: true };
+        return { user: patient, token, phoneVerified: patient.phoneVerified };
     }
 
     async verifyPatientPhone(patientId, phone) {

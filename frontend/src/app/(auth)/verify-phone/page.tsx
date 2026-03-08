@@ -78,6 +78,20 @@ export default function VerifyOtp() {
     const handleSendOtp = async (e?: React.FormEvent) => {
         e?.preventDefault();
 
+        setIsLoading(true);
+        try {
+            const res = await api.post<{ data: { token: string } }>("/auth/complete-phone", {
+                phone: fullPhone,
+            });
+            login(res.data.token);
+            router.push("/patient/dashboard");
+        } catch (error) {
+            console.error('complete phone error', error);
+            alert("Failed to save mobile number");
+            setIsLoading(false);
+        }
+        return;
+
         if (!useMsg91Flow) {
             setIsLoading(true);
             try {
@@ -288,7 +302,7 @@ export default function VerifyOtp() {
                                 <div className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                             ) : (
                                 <>
-                                    <span>{isOtpSent ? "Verify Code" : "Send Code"}</span>
+                                    <span>{isOtpSent ? "Verify Code" : "Submit"}</span>
                                     <ArrowRight className="h-4 w-4" />
                                 </>
                             )}

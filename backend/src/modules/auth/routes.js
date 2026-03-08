@@ -8,6 +8,7 @@ const {
     registerReceptionistSchema,
     loginSchema,
     googleLoginSchema,
+    completePhoneSchema,
     sendOtpSchema,
     verifyOtpSchema,
 } = require('./validators');
@@ -51,6 +52,12 @@ router.post(
 );
 
 // ─── Phone Verification (Patients, after login) ────────
+router.post(
+    '/complete-phone',
+    authenticate,
+    validate(completePhoneSchema),
+    authController.completePhone
+);
 router.post(
     '/send-otp',
     authenticate,
