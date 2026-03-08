@@ -45,6 +45,31 @@ const databaseUrl = process.env.DATABASE_URL ||
 console.log('🔍 Using Database URL:', databaseUrl ? databaseUrl.replace(/:[^:@]+@/, ':***@') : 'NOT SET');
 
 // ──────────────────────────────────────────────────────
+// Auto-seed on startup (fallback for Railway)
+// ──────────────────────────────────────────────────────
+if (process.env.NODE_ENV === 'production' && process.env.AUTO_SEED !== 'false') {
+    setTimeout(async () => {
+        try {
+            console.log('🌱 Auto-seeding on startup...');
+            const { execSync } = require('child_process');
+            
+            // Run migrations first
+            console.log('🔧 Running migrations...');
+            execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+            
+            // Then run safe seed
+            console.log('🌱 Running safe seed...');
+            execSync('node seed-safe.js', { stdio: 'inherit' });
+            
+            console.log('✅ Auto-seeding completed successfully!');
+        } catch (error) {
+            console.error('❌ Auto-seeding failed:', error.message);
+            // Don't crash the app, just log the error
+        }
+    }, 5000); // Wait 5 seconds after startup
+}
+
+// ──────────────────────────────────────────────────────
 // 1. Security Middleware
 // ──────────────────────────────────────────────────────
 app.use(helmet({
