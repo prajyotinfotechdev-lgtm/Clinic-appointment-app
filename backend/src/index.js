@@ -24,6 +24,9 @@ const pushRoutes = require('./modules/push/routes');
 
 const app = express();
 
+// Trust proxy for Railway
+app.set('trust proxy', true);
+
 // ──────────────────────────────────────────────────────
 // Debug: Log environment variables
 // ──────────────────────────────────────────────────────
