@@ -151,8 +151,8 @@ app.post('/api/setup-database', async (_req, res) => {
         const { execSync } = require('child_process');
         execSync('npx prisma migrate deploy', { stdio: 'inherit' });
         
-        console.log('🌱 Running seed script...');
-        execSync('node seed.js', { stdio: 'inherit' });
+        console.log('🌱 Running safe seed script...');
+        execSync('node seed-safe.js', { stdio: 'inherit' });
         
         res.json({
             success: true,
@@ -164,6 +164,30 @@ app.post('/api/setup-database', async (_req, res) => {
         res.status(500).json({
             success: false,
             message: 'Database setup failed',
+            error: error.message,
+        });
+    }
+});
+
+// ──────────────────────────────────────────────────────
+// 6. Safe Seed Only Endpoint
+// ──────────────────────────────────────────────────────
+app.post('/api/seed-database', async (_req, res) => {
+    try {
+        console.log('🌱 Running safe seed script...');
+        const { execSync } = require('child_process');
+        execSync('node seed-safe.js', { stdio: 'inherit' });
+        
+        res.json({
+            success: true,
+            message: 'Database seeding completed successfully',
+            timestamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error('❌ Seeding failed:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Seeding failed',
             error: error.message,
         });
     }
