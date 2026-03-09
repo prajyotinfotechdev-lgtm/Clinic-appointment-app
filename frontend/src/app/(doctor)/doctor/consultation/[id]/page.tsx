@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function ConsultationPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
+    use(params);
 
     return (
         <div className="space-y-4 pb-20 md:pb-6 pt-2 md:pt-4 px-4">

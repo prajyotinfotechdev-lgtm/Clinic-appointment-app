@@ -1,7 +1,7 @@
 "use client";
 
 import { use } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { api } from "@/lib/api";
 import { useAppointments } from "@/hooks/useAppointments";
 import { ArrowLeft, Phone, Mail, Calendar, Activity, Clock, FileText, Pill, Printer, Edit } from "lucide-react";
@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { PrescriptionForm, Medication } from "@/components/prescriptions/PrescriptionForm";
 import PrescriptionPrintTemplate from "@/components/prescription/PrescriptionPrintTemplate";
-import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { CLINIC, DOCTORS } from "@/lib/clinic-data";
 import { formatTime12Hour } from "@/lib/utils";
@@ -59,6 +58,12 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
         documentTitle: `Prescription_${patient?.name || "patient"}`,
         pageStyle: "@page { size: A4; margin: 0; }"
     });
+
+    const triggerPrint = useCallback(() => {
+        if (printRef.current) {
+            handlePrintPrescription();
+        }
+    }, [handlePrintPrescription]);
 
     const { appointments, isLoading: isLoadingAppointments, refetch: refetchAppointments } = useAppointments({ patientId });
 
@@ -103,11 +108,11 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
     useEffect(() => {
         if (printingPrescription && printRef.current) {
             setTimeout(() => {
-                handlePrintPrescription();
+                triggerPrint();
                 setPrintingPrescription(null);
             }, 100);
         }
-    }, [printingPrescription]);
+    }, [printingPrescription, triggerPrint]);
 
     if (isLoadingPatient) {
         return (
@@ -209,7 +214,7 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
                                 </div>
                             ) : (
                                 <div className="divide-y divide-slate-50">
-                                    {history.map((appt) => (
+                                    {history.map((appt: any) => (
                                         <div key={appt.id} className="p-4 hover:bg-slate-50/30 transition-colors">
                                             <div className="flex items-start justify-between gap-3 mb-3">
                                                 <div className="flex items-center gap-3">

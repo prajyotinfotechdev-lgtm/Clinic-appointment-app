@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import { Stethoscope, ArrowRight, Mail, Lock } from "lucide-react";
+import { Mail, Lock, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -75,7 +76,7 @@ export default function LoginPage() {
             <div className="relative z-10 w-full max-w-sm space-y-6">
                 {/* Brand */}
                 <div className="text-center space-y-2">
-                    <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="mx-auto w-14 h-14 rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
+                    <Image src="/logo.png" alt="Star Ortho & Women Care Logo" width={56} height={56} className="mx-auto rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
                     <h1 className="text-xl font-bold text-slate-900 tracking-tight">Star Ortho & Women Care</h1>
                     <p className="text-slate-500 text-xs">Welcome back! Let&apos;s get you in.</p>
                 </div>

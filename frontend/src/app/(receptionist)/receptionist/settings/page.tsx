@@ -50,7 +50,7 @@ export default function ClinicSettingsPage() {
                 slotDurationMinutes: parseInt(duration, 10)
             });
             alert("Clinic settings updated successfully!");
-        } catch (err) {
+        } catch {
             alert("Failed to update clinic settings.");
         } finally {
             setIsSaving(false);

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarIcon, X, Plus, Trash2, Home, Clock } from "lucide-react";
@@ -20,9 +20,8 @@ interface Availability {
 }
 
 export function AvailabilityManager() {
-    const { user } = useAuth();
+    useAuth();
     const [availabilities, setAvailabilities] = useState<Availability[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
         type: 'HOLIDAY' as 'HOLIDAY' | 'UNAVAILABLE',
@@ -39,8 +38,6 @@ export function AvailabilityManager() {
             setAvailabilities(res.data);
         } catch (err) {
             console.error("Failed to fetch availability", err);
-        } finally {
-            setIsLoading(false);
         }
     };
 

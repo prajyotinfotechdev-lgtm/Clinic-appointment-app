@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Stethoscope, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -10,7 +11,7 @@ export default function HomePage() {
       </div>
 
       <div className="text-center space-y-8 p-6 max-w-lg mx-auto z-10">
-        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="mx-auto w-16 h-16 rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
+        <Image src="/logo.png" alt="Star Ortho & Women Care Logo" width={64} height={64} className="mx-auto rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
 
         <div className="space-y-3">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">

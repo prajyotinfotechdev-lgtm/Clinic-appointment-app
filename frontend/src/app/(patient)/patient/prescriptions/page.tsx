@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Pill, Activity, CalendarDays, Stethoscope, Printer } from "lucide-react";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { cn, formatTime12Hour } from "@/lib/utils";
+import { formatTime12Hour } from "@/lib/utils";
 import { CLINIC, DOCTORS } from "@/lib/clinic-data";
 
 export default function PatientPrescriptionsPage() {
@@ -131,7 +131,7 @@ export default function PatientPrescriptionsPage() {
                                     </div>
                                     <div>
                                         <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Patient ID</p>
-                                        {/* @ts-ignore */}
+                                        {/* @ts-expect-error */}
                                         <p className="text-lg font-bold text-slate-900">{px.patientId ? px.patientId.substring(0, 8) : "N/A"}</p>
                                     </div>
                                     <div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { LogOut, Bell, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -28,7 +29,7 @@ export function TopNav({ items, title }: { items: NavigationItem[], title: strin
                 <div className="flex h-20 items-center justify-between px-6 lg:px-8 max-w-7xl mx-auto">
                     {/* Logo & Brand */}
                     <div className="flex items-center gap-3">
-                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-11 h-11 rounded-2xl object-contain bg-white border border-slate-200 shadow-md" />
+                        <Image src="/logo.png" alt="Logo" width={44} height={44} className="rounded-2xl object-contain bg-white border border-slate-200 shadow-md" />
                         <div>
                             <span className="font-extrabold text-xl text-[hsl(195,90%,12%)] tracking-tight block leading-tight">
                                 {CLINIC.brandName}
@@ -85,7 +86,7 @@ export function TopNav({ items, title }: { items: NavigationItem[], title: strin
             <header suppressHydrationWarning className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-[hsl(214,30%,92%)] md:hidden">
                 <div className="flex h-16 items-center justify-between px-5">
                     <div className="flex items-center gap-3">
-                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-9 h-9 rounded-xl object-contain bg-white border border-slate-200 shadow-sm" />
+                        <Image src="/logo.png" alt="Logo" width={32} height={32} className="rounded-lg object-contain bg-white border border-slate-200 shadow-sm" />
                         <div>
                             <span className="font-extrabold text-lg text-[hsl(195,90%,12%)] tracking-tight leading-none block">
                                 {title}

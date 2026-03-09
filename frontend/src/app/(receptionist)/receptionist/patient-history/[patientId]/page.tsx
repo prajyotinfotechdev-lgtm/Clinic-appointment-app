@@ -8,7 +8,6 @@ import { ArrowLeft, Phone, Mail, Calendar, Activity, Clock, FileText, Pill, Prin
 import Link from "next/link";
 import { format } from "date-fns";
 import { PrescriptionPrint } from "@/components/prescriptions/PrescriptionPrint";
-import { CLINIC, DOCTORS } from "@/lib/clinic-data";
 import { formatTime12Hour } from "@/lib/utils";
 
 interface Patient {
@@ -199,26 +198,26 @@ export default function ReceptionistPatientHistoryDetailPage({ params }: { param
                                                 </span>
                                             </div>
 
-                                            {/* @ts-ignore */}
+                                            {/* @ts-expect-error */}
                                             {appt.prescription ? (
                                                 <div className="space-y-2.5 print:hidden">
-                                                    {/* @ts-ignore */}
+                                                    {/* @ts-expect-error */}
                                                     {appt.prescription.diagnosis && (
                                                         <div className="bg-slate-50 rounded-lg p-3">
                                                             <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mb-0.5">Diagnosis</p>
-                                                            {/* @ts-ignore */}
+                                                            {/* @ts-expect-error */}
                                                             <p className="font-semibold text-slate-800 text-sm">{appt.prescription.diagnosis}</p>
                                                         </div>
                                                     )}
 
-                                                    {/* @ts-ignore */}
+                                                    {/* @ts-expect-error */}
                                                     {appt.prescription.medicines && appt.prescription.medicines.length > 0 && (
                                                         <div className="bg-white rounded-lg p-3 border border-slate-100">
                                                             <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1">
                                                                 <Pill className="h-3 w-3" /> Medications
                                                             </p>
                                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                                {/* @ts-ignore */}
+                                                                {/* @ts-expect-error */}
                                                                 {appt.prescription.medicines.map((med: any, i: number) => (
                                                                     <div key={i} className="flex items-start gap-2 p-2 bg-slate-50 rounded-md">
                                                                         <div className="w-5 h-5 rounded-full bg-teal-50 flex items-center justify-center shrink-0 mt-0.5">
@@ -234,11 +233,11 @@ export default function ReceptionistPatientHistoryDetailPage({ params }: { param
                                                         </div>
                                                     )}
 
-                                                    {/* @ts-ignore */}
+                                                    {/* @ts-expect-error */}
                                                     {appt.prescription.notes && (
                                                         <div className="bg-amber-50 rounded-lg p-3 border border-amber-100">
                                                             <p className="text-[9px] font-semibold text-amber-600 uppercase tracking-widest mb-0.5">Notes</p>
-                                                            {/* @ts-ignore */}
+                                                            {/* @ts-expect-error */}
                                                             <p className="font-medium text-amber-800 text-xs whitespace-pre-wrap">{appt.prescription.notes}</p>
                                                         </div>
                                                     )}

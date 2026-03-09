@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { LogOut, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -75,7 +76,7 @@ export function GlobalNavigation({ items, title }: { items: NavigationItem[], ti
                 {/* ── Brand ── */}
                 <div className="h-14 flex items-center px-4 shrink-0">
                     <div className="flex items-center gap-2.5">
-                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-8 h-8 rounded-lg object-contain bg-white border border-slate-200 shadow-sm" />
+                        <Image src="/logo.png" alt="Logo" width={28} height={28} className="rounded-lg object-contain bg-white border border-slate-200 shadow-sm" />
                         <div className="min-w-0">
                             <span className="font-extrabold text-[13px] text-slate-900 tracking-tight block leading-none truncate">
                                 Star Ortho & Women Care

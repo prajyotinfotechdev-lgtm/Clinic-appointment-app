@@ -20,7 +20,6 @@ interface PrescriptionFormProps {
     initialNotes?: string;
     onSave: (data: { diagnosis: string; medicines: Medication[]; notes: string }) => Promise<void>;
     isSubmitting?: boolean;
-    activePatientName?: string;
 }
 
 export function PrescriptionForm({
@@ -28,8 +27,7 @@ export function PrescriptionForm({
     initialMeds = [{ name: "", dosage: "", frequency: "", duration: "" }],
     initialNotes = "",
     onSave,
-    isSubmitting = false,
-    activePatientName
+    isSubmitting = false
 }: PrescriptionFormProps) {
     const [diagnosis, setDiagnosis] = useState(initialDiagnosis);
     const [meds, setMeds] = useState<Medication[]>(initialMeds);

@@ -9,7 +9,6 @@ import {
     Stethoscope,
     ListTodo,
     History,
-    BarChart3,
     Settings
 } from "lucide-react";
 

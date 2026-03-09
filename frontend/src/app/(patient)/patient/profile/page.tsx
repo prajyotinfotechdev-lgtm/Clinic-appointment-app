@@ -19,7 +19,7 @@ interface PatientProfile {
 }
 
 export default function PatientProfilePage() {
-    const { user } = useAuth();
+    useAuth();
     const [profile, setProfile] = useState<PatientProfile | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -51,7 +51,7 @@ export default function PatientProfilePage() {
             await api.put(`/patients/${profile.id}`, { phone: editPhone });
             setProfile({ ...profile, phone: editPhone, phoneVerified: editPhone === profile.phone ? profile.phoneVerified : false });
             setIsEditing(false);
-        } catch (err) {
+        } catch {
             alert("Failed to update profile");
         } finally {
             setIsSavingProfile(false);

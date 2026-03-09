@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
 import { Calendar } from "@/components/ui/calendar";
-import { format, addDays, startOfDay, isBefore, isSameDay, parseISO } from "date-fns";
+import { format, addDays, startOfDay, parseISO, isBefore } from "date-fns";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Calendar as CalendarIcon, Clock, ArrowRight, Stethoscope, GraduationCap } from "lucide-react";
 import { mutate } from "swr";

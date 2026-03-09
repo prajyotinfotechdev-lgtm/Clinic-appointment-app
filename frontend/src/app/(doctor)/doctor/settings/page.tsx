@@ -70,7 +70,7 @@ export default function AvailabilitySettings() {
             });
             setMessage({ type: 'success', text: "Availability updated successfully" });
             setTimeout(() => setMessage(null), 3000);
-        } catch (err) {
+        } catch {
             setMessage({ type: 'error', text: "Failed to update settings" });
         } finally {
             setIsSaving(false);

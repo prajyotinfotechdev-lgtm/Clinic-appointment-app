@@ -7,7 +7,6 @@ import useSWR from "swr";
 import { Search, Phone, Activity, Calendar, Stethoscope, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
 interface Medication {
     name: string;
@@ -36,7 +35,7 @@ interface Prescription {
 const fetcher = (url: string) => api.get(url).then((res: any) => res.data);
 
 export default function PatientSearchPage() {
-    const { user } = useAuth();
+    useAuth();
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState("");
 

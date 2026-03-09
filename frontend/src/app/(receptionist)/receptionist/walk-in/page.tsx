@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { UserSearch, Clock, Search, CalendarDays, UserCheck, Stethoscope, Zap } from "lucide-react";
+import { UserSearch, Search, CalendarDays, UserCheck, Stethoscope, Zap } from "lucide-react";
 import { cn, formatTime12Hour } from "@/lib/utils";
 
 interface Doctor {

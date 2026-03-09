@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
 import { useState } from "react";
 import { format } from "date-fns";
-import { Activity, Clock, Users, XCircle, HeartPulse } from "lucide-react";
+import { Clock, Users, XCircle, HeartPulse } from "lucide-react";
 import { formatTime12Hour } from "@/lib/utils";
 import { PatientVitalsDialog } from "@/components/appointments/PatientVitalsDialog";
 

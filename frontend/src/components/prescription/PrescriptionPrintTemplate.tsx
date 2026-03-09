@@ -145,4 +145,6 @@ const PrescriptionPrintTemplate = forwardRef<HTMLDivElement, PrescriptionPrintTe
   )
 );
 
+PrescriptionPrintTemplate.displayName = 'PrescriptionPrintTemplate';
+
 export default PrescriptionPrintTemplate;
