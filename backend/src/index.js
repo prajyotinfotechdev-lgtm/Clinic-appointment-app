@@ -117,8 +117,8 @@ app.use(pinoHttp({
 
 // Global limiter: 200 requests per 15 minutes per IP
 const globalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 200,
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // Increased from 200 to 1000 to prevent false positive blocks
     message: { success: false, message: 'Too many requests, please try again later' },
     standardHeaders: true,
     legacyHeaders: false,
