@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
 import { Calendar } from "@/components/ui/calendar";
-import { format, addDays, startOfDay, isBefore } from "date-fns";
+import { format, addDays, startOfDay, isBefore, isSameDay, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Calendar as CalendarIcon, Clock, ArrowRight, Stethoscope, GraduationCap } from "lucide-react";
 import { mutate } from "swr";
@@ -33,6 +33,8 @@ export default function BookAppointment() {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
     const [availableSlots, setAvailableSlots] = useState<string[]>([]);
     const [selectedSlot, setSelectedSlot] = useState<string>("");
+    const [doctorHolidays, setDoctorHolidays] = useState<any[]>([]);
+    const [holidayMessage, setHolidayMessage] = useState<string>("");
 
     const [isBooking, setIsBooking] = useState(false);
     const [bookingSuccess, setBookingSuccess] = useState(false);
@@ -48,8 +50,17 @@ export default function BookAppointment() {
             api.get<{ data: any }>(`/clinic-settings/doctor/${selectedDoctor.id}`)
                 .then(res => setDoctorSettings(res.data))
                 .catch(err => console.error("Failed to fetch doctor settings", err));
+            
+            // Fetch doctor holidays
+            api.get<{ data: any[] }>(`/doctor-availability?doctorId=${selectedDoctor.id}`)
+                .then(res => {
+                    const holidays = res.data.filter((a: any) => a.type === 'HOLIDAY');
+                    setDoctorHolidays(holidays);
+                })
+                .catch(err => console.error("Failed to fetch doctor holidays", err));
         } else {
             setDoctorSettings(null);
+            setDoctorHolidays([]);
         }
     }, [selectedDoctor]);
 
@@ -112,6 +123,31 @@ export default function BookAppointment() {
 
     const today = startOfDay(new Date());
     const maxDate = addDays(today, 14);
+
+    // Check if a date is a holiday
+    const isHoliday = (date: Date) => {
+        return doctorHolidays.some(holiday => {
+            const start = startOfDay(parseISO(holiday.startDate));
+            const end = holiday.endDate ? startOfDay(parseISO(holiday.endDate)) : start;
+            const checkDate = startOfDay(date);
+            return checkDate >= start && checkDate <= end;
+        });
+    };
+
+    // Handle date click
+    const handleDateSelect = (date: Date | undefined) => {
+        if (!date) return;
+        
+        if (isHoliday(date)) {
+            setHolidayMessage(`Dr. ${selectedDoctor?.name} is on holiday on ${format(date, "MMMM do, yyyy")}`);
+            setTimeout(() => setHolidayMessage(""), 3000);
+            return;
+        }
+        
+        setSelectedDate(date);
+        setSelectedSlot("");
+        setHolidayMessage("");
+    };
 
     if (bookingSuccess) {
         return (
@@ -204,7 +240,10 @@ export default function BookAppointment() {
                             <Calendar
                                 mode="single"
                                 selected={selectedDate}
-                                onSelect={(d) => { if (d) { setSelectedDate(d); setSelectedSlot(""); } }}
+                                onSelect={handleDateSelect}
+                                modifiers={{
+                                    holiday: (date) => isHoliday(date)
+                                }}
                                 disabled={(d) => {
                                     const dayStart = startOfDay(d);
                                     if (isBefore(dayStart, today) || dayStart > maxDate) return true;
@@ -238,7 +277,10 @@ export default function BookAppointment() {
                                     day: "w-8 h-8 md:w-9 md:h-9 rounded-lg font-medium text-xs hover:bg-slate-100 focus:bg-teal-50 text-slate-700 transition-colors mx-auto",
                                     day_selected: "bg-teal-600 text-white hover:bg-teal-700 font-bold",
                                     day_today: "bg-teal-50 text-teal-700 font-bold",
-                                    day_disabled: "text-slate-300 opacity-40",
+                                    day_disabled: "text-slate-300 opacity-40 cursor-not-allowed hover:bg-transparent",
+                                }}
+                                modifiersClassNames={{
+                                    holiday: "bg-red-500/20 text-red-700 hover:bg-red-500/30 font-semibold rounded-full shadow-[0_0_0_1px_rgba(239,68,68,0.4)]"
                                 }}
                             />
                         </div>
@@ -258,6 +300,19 @@ export default function BookAppointment() {
                     </div>
                 </div>
             </div>
+
+            {/* ── Holiday Message ── */}
+            {holidayMessage && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3 animate-fade-in">
+                    <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center shrink-0">
+                        <CalendarIcon className="w-4 h-4 text-red-600" />
+                    </div>
+                    <div className="flex-1">
+                        <p className="text-sm font-semibold text-red-900">{holidayMessage}</p>
+                        <p className="text-xs text-red-600 mt-0.5">Please select a different date to book an appointment.</p>
+                    </div>
+                </div>
+            )}
 
             {/* ── Step 3: Time Slot ── */}
             <div className={cn("space-y-3 transition-all duration-500", selectedDate ? "opacity-100" : "opacity-40 pointer-events-none")}>

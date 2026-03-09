@@ -11,7 +11,7 @@ import "./globals.css";
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
 
 export const metadata: Metadata = {
-  title: "ClinicFlow — Appointment Management",
+  title: "Star Ortho & Women Care — Appointment Management",
   description:
     "Modern clinic appointment management system for patients, doctors, and receptionists.",
 };
@@ -25,6 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/logo.png" type="image/png" />
+      </head>
       <body className={nunito.className} suppressHydrationWarning>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           <ClientOnly>

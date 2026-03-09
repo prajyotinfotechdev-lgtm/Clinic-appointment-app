@@ -8,6 +8,11 @@ const router = Router();
 router.use(authenticate);
 
 router.get(
+    '/',
+    authorize('RECEPTIONIST'),
+    prescriptionController.getAll
+);
+router.get(
     '/patient/:patientId',
     authorize('DOCTOR', 'PATIENT'),
     prescriptionController.getByPatient

@@ -21,7 +21,7 @@ import { cn, formatTime12Hour, getStatusConfig } from "@/lib/utils";
 import { SevenDayGlance } from "@/components/dashboard/SevenDayGlance";
 
 export default function ReceptionistDashboard() {
-    useAuth();
+    const { user } = useAuth();
     const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
     const { appointments, isLoading, refetch } = useAppointments({
         date: selectedDate,
@@ -64,7 +64,9 @@ export default function ReceptionistDashboard() {
             <div className="flex flex-col gap-4">
                 <div className="flex items-start md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Reception</h1>
+                        <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+                            {user?.name ? `${user.name}` : "Reception"}
+                        </h1>
                         <p className="text-slate-500 text-xs md:text-sm mt-0.5">
                             {format(new Date(selectedDate), "EEEE, MMMM do")}
                             {appointments.length > 0 && (

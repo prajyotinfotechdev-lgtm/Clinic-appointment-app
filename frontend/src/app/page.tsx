@@ -10,9 +10,7 @@ export default function HomePage() {
       </div>
 
       <div className="text-center space-y-8 p-6 max-w-lg mx-auto z-10">
-        <div className="mx-auto w-16 h-16 rounded-2xl bg-teal-600 flex items-center justify-center shadow-lg shadow-teal-600/20">
-          <Stethoscope className="w-8 h-8 text-white" />
-        </div>
+        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="mx-auto w-16 h-16 rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
 
         <div className="space-y-3">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">

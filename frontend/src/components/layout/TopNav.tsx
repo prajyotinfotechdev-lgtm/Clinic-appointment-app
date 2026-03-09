@@ -28,9 +28,7 @@ export function TopNav({ items, title }: { items: NavigationItem[], title: strin
                 <div className="flex h-20 items-center justify-between px-6 lg:px-8 max-w-7xl mx-auto">
                     {/* Logo & Brand */}
                     <div className="flex items-center gap-3">
-                        <div className="bg-[hsl(190,95%,15%)] text-white w-11 h-11 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-md shadow-[hsl(190,95%,15%)]/20">
-                            C
-                        </div>
+                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-11 h-11 rounded-2xl object-contain bg-white border border-slate-200 shadow-md" />
                         <div>
                             <span className="font-extrabold text-xl text-[hsl(195,90%,12%)] tracking-tight block leading-tight">
                                 {CLINIC.brandName}
@@ -87,9 +85,7 @@ export function TopNav({ items, title }: { items: NavigationItem[], title: strin
             <header suppressHydrationWarning className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-[hsl(214,30%,92%)] md:hidden">
                 <div className="flex h-16 items-center justify-between px-5">
                     <div className="flex items-center gap-3">
-                        <div className="bg-[hsl(190,95%,15%)] text-white w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-base shadow-sm">
-                            C
-                        </div>
+                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-9 h-9 rounded-xl object-contain bg-white border border-slate-200 shadow-sm" />
                         <div>
                             <span className="font-extrabold text-lg text-[hsl(195,90%,12%)] tracking-tight leading-none block">
                                 {title}

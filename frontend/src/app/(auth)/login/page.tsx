@@ -75,9 +75,7 @@ export default function LoginPage() {
             <div className="relative z-10 w-full max-w-sm space-y-6">
                 {/* Brand */}
                 <div className="text-center space-y-2">
-                    <div className="mx-auto w-14 h-14 rounded-2xl bg-teal-600 flex items-center justify-center shadow-lg shadow-teal-600/20">
-                        <Stethoscope className="w-7 h-7 text-white" />
-                    </div>
+                    <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="mx-auto w-14 h-14 rounded-2xl object-contain bg-white border border-slate-200 shadow-lg" />
                     <h1 className="text-xl font-bold text-slate-900 tracking-tight">Star Ortho & Women Care</h1>
                     <p className="text-slate-500 text-xs">Welcome back! Let&apos;s get you in.</p>
                 </div>

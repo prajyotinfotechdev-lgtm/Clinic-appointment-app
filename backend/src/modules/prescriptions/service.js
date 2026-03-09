@@ -2,6 +2,10 @@ const prescriptionRepository = require('./repository');
 const { AppError } = require('../../utils/AppError');
 
 class PrescriptionService {
+    async getAllPrescriptions() {
+        return prescriptionRepository.findAll();
+    }
+
     async getPrescriptionsByPatient(patientId) {
         return prescriptionRepository.findByPatientId(patientId);
     }

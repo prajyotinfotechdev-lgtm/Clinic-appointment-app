@@ -42,7 +42,7 @@ export default function AvailabilitySettings() {
         const fetchSettings = async () => {
             if (!user?.id) return;
             try {
-                const res = await api.get<{ data: any }>(`/clinic-settings/${user.id}`);
+                const res = await api.get<{ data: any }>(`/clinic-settings/doctor/${user.id}`);
                 if (res.data) {
                     setSettings({
                         clinicStartTime: res.data.clinicStartTime,

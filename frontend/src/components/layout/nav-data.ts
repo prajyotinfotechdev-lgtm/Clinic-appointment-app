@@ -26,6 +26,7 @@ export const receptionistNavigation = [
     { name: "Patients", href: "/receptionist/patients", icon: Users },
     { name: "Appointments", href: "/receptionist/appointments", icon: CalendarDays },
     { name: "Queue", href: "/receptionist/queue", icon: Activity },
+    { name: "Patient History", href: "/receptionist/patient-history", icon: History },
 ];
 
 export const doctorNavigation = [

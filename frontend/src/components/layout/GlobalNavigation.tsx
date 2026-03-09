@@ -42,8 +42,13 @@ export function GlobalNavigation({ items, title }: { items: NavigationItem[], ti
         return pathname === href || (pathname.startsWith(href) && href.split('/').length > 2);
     };
 
-    const userInitial = user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || "U";
-    const displayName = user?.role === "DOCTOR" ? `Dr. ${user?.name || "Doctor"}` : (user?.name || "User");
+    const fallbackName = user?.name && user.name.trim().length > 0
+        ? user.name.trim()
+        : (user?.email?.split("@")[0] || "User");
+    const userInitial = fallbackName.charAt(0).toUpperCase();
+    const displayName = user?.role === "DOCTOR"
+        ? ` ${fallbackName}`
+        : fallbackName;
 
     // Short labels for mobile bottom nav
     const getMobileLabel = (name: string) => {
@@ -70,12 +75,10 @@ export function GlobalNavigation({ items, title }: { items: NavigationItem[], ti
                 {/* ── Brand ── */}
                 <div className="h-14 flex items-center px-4 shrink-0">
                     <div className="flex items-center gap-2.5">
-                        <div className="bg-teal-600 text-white w-7 h-7 rounded-lg flex items-center justify-center font-extrabold text-xs shadow-sm">
-                            CF
-                        </div>
+                        <img src="/logo.png" alt="Star Ortho & Women Care Logo" className="w-8 h-8 rounded-lg object-contain bg-white border border-slate-200 shadow-sm" />
                         <div className="min-w-0">
                             <span className="font-extrabold text-[13px] text-slate-900 tracking-tight block leading-none truncate">
-                                ClinicFlow
+                                Star Ortho & Women Care
                             </span>
                             <span className="text-[10px] font-medium text-slate-400 block mt-0.5 truncate">
                                 {CLINIC.brandName}

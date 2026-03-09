@@ -67,8 +67,11 @@ export default function DoctorDashboard() {
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
-                            {user?.name ? `Dr. ${user.name}` : "Dashboard"}
+                            {user?.name ? `${user.name}` : "Dashboard"}
                         </h1>
+                        <p className="text-[11px] font-semibold text-teal-600 uppercase tracking-widest mt-0.5">
+                            Doctor Dashboard
+                        </p>
                         <p className="text-slate-500 text-xs md:text-sm mt-0.5">
                             {format(new Date(selectedDate), "EEEE, MMMM do")}
                             {appointments.length > 0 && (

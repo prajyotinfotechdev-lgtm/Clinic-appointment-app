@@ -1,6 +1,16 @@
 const prisma = require('../../config/database');
 
 class PrescriptionRepository {
+    async findAll() {
+        return prisma.prescription.findMany({
+            include: {
+                patient: { select: { name: true, phone: true } },
+                appointment: { select: { appointmentDate: true, timeSlot: true } },
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
+
     async findByAppointmentId(appointmentId) {
         return prisma.prescription.findUnique({ where: { appointmentId } });
     }

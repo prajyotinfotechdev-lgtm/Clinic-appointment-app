@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
 import useSWR from "swr";
 import { Search, Phone, Activity, Calendar, Stethoscope, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
 interface Medication {
     name: string;
@@ -35,12 +33,11 @@ interface Prescription {
 
 const fetcher = (url: string) => api.get(url).then((res: any) => res.data);
 
-export default function PatientSearchPage() {
-    const { user } = useAuth();
+export default function ReceptionistPatientHistoryPage() {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const { data: prescriptions, isLoading } = useSWR<Prescription[]>('/prescriptions/doctor', fetcher);
+    const { data: prescriptions, isLoading } = useSWR<Prescription[]>('/prescriptions', fetcher);
 
     const groupedByPatient = (prescriptions || []).reduce((acc, p) => {
         if (!acc[p.patientId]) {
@@ -115,7 +112,7 @@ export default function PatientSearchPage() {
                     {filteredPatients.map(patient => (
                         <div
                             key={patient.patientId}
-                            onClick={() => router.push(`/doctor/patient-history/${patient.patientId}`)}
+                            onClick={() => router.push(`/receptionist/patient-history/${patient.patientId}`)}
                             className="group bg-white rounded-xl border border-slate-200/60 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] px-4 py-3 cursor-pointer transition-all flex items-center gap-3"
                         >
                             <div className="h-10 w-10 rounded-full bg-teal-50 flex items-center justify-center shrink-0">

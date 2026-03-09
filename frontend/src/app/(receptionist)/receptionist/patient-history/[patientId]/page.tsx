@@ -4,20 +4,10 @@ import { use } from "react";
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
 import { useAppointments } from "@/hooks/useAppointments";
-import { ArrowLeft, Phone, Mail, Calendar, Activity, Clock, FileText, Pill, Printer, Edit } from "lucide-react";
+import { ArrowLeft, Phone, Mail, Calendar, Activity, Clock, FileText, Pill, Printer } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription
-} from "@/components/ui/dialog";
-import { PrescriptionForm, Medication } from "@/components/prescriptions/PrescriptionForm";
-import PrescriptionPrintTemplate from "@/components/prescription/PrescriptionPrintTemplate";
-import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
+import { PrescriptionPrint } from "@/components/prescriptions/PrescriptionPrint";
 import { CLINIC, DOCTORS } from "@/lib/clinic-data";
 import { formatTime12Hour } from "@/lib/utils";
 
@@ -36,6 +26,13 @@ interface Prescription {
     notes: string;
 }
 
+interface Medication {
+    name: string;
+    dosage: string;
+    frequency: string;
+    duration: string;
+}
+
 interface Appointment {
     id: string;
     appointmentDate: string;
@@ -45,22 +42,13 @@ interface Appointment {
     prescription?: Prescription;
 }
 
-export default function PatientHistoryPage({ params }: { params: Promise<{ patientId: string }> }) {
+export default function ReceptionistPatientHistoryDetailPage({ params }: { params: Promise<{ patientId: string }> }) {
     const { patientId } = use(params);
     const [patient, setPatient] = useState<Patient | null>(null);
     const [isLoadingPatient, setIsLoadingPatient] = useState(true);
-    const [editingPrescription, setEditingPrescription] = useState<any>(null);
     const [printingPrescription, setPrintingPrescription] = useState<any>(null);
-    const [isUpdating, setIsUpdating] = useState(false);
-    const printRef = useRef<HTMLDivElement>(null);
 
-    const handlePrintPrescription = useReactToPrint({
-        contentRef: printRef,
-        documentTitle: `Prescription_${patient?.name || "patient"}`,
-        pageStyle: "@page { size: A4; margin: 0; }"
-    });
-
-    const { appointments, isLoading: isLoadingAppointments, refetch: refetchAppointments } = useAppointments({ patientId });
+    const { appointments, isLoading: isLoadingAppointments } = useAppointments({ patientId });
 
     useEffect(() => {
         const fetchPatient = async () => {
@@ -80,34 +68,14 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
         new Date(b.appointmentDate).getTime() - new Date(a.appointmentDate).getTime()
     );
 
-    const handleUpdate = async (data: { diagnosis: string; medicines: Medication[]; notes: string }) => {
-        if (!editingPrescription) return;
-        try {
-            setIsUpdating(true);
-            await api.put(`/prescriptions/${editingPrescription.id}`, data);
-            setEditingPrescription(null);
-            refetchAppointments();
-            alert("Prescription updated successfully");
-        } catch (err) {
-            console.error("Failed to update prescription", err);
-            alert("Failed to update prescription");
-        } finally {
-            setIsUpdating(false);
-        }
-    };
     const handlePrint = (appt: any) => {
         if (!appt.prescription) return;
         setPrintingPrescription(appt);
+        setTimeout(() => {
+            window.print();
+            setPrintingPrescription(null);
+        }, 100);
     };
-
-    useEffect(() => {
-        if (printingPrescription && printRef.current) {
-            setTimeout(() => {
-                handlePrintPrescription();
-                setPrintingPrescription(null);
-            }, 100);
-        }
-    }, [printingPrescription]);
 
     if (isLoadingPatient) {
         return (
@@ -129,7 +97,7 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
             <div className="max-w-5xl mx-auto pt-8 px-4 text-center space-y-3">
                 <Activity className="h-8 w-8 text-slate-200 mx-auto" />
                 <p className="text-sm font-semibold text-slate-600">Patient Not Found</p>
-                <Link href="/doctor/patient-history" className="text-xs text-teal-600 font-semibold hover:underline">
+                <Link href="/receptionist/patient-history" className="text-xs text-teal-600 font-semibold hover:underline">
                     &larr; Back to Search
                 </Link>
             </div>
@@ -138,7 +106,7 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
 
     return (
         <div className="max-w-5xl mx-auto space-y-5 pb-20 md:pb-6 pt-2 md:pt-4 px-4">
-            <Link href="/doctor/patient-history" className="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-teal-600 transition-colors">
+            <Link href="/receptionist/patient-history" className="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-teal-600 transition-colors">
                 <ArrowLeft className="w-3.5 h-3.5 mr-1" />
                 Back to Search
             </Link>
@@ -231,21 +199,26 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
                                                 </span>
                                             </div>
 
+                                            {/* @ts-ignore */}
                                             {appt.prescription ? (
-                                                <div className="space-y-2.5">
+                                                <div className="space-y-2.5 print:hidden">
+                                                    {/* @ts-ignore */}
                                                     {appt.prescription.diagnosis && (
                                                         <div className="bg-slate-50 rounded-lg p-3">
                                                             <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mb-0.5">Diagnosis</p>
+                                                            {/* @ts-ignore */}
                                                             <p className="font-semibold text-slate-800 text-sm">{appt.prescription.diagnosis}</p>
                                                         </div>
                                                     )}
 
+                                                    {/* @ts-ignore */}
                                                     {appt.prescription.medicines && appt.prescription.medicines.length > 0 && (
                                                         <div className="bg-white rounded-lg p-3 border border-slate-100">
                                                             <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1">
                                                                 <Pill className="h-3 w-3" /> Medications
                                                             </p>
                                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                                {/* @ts-ignore */}
                                                                 {appt.prescription.medicines.map((med: any, i: number) => (
                                                                     <div key={i} className="flex items-start gap-2 p-2 bg-slate-50 rounded-md">
                                                                         <div className="w-5 h-5 rounded-full bg-teal-50 flex items-center justify-center shrink-0 mt-0.5">
@@ -261,9 +234,11 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
                                                         </div>
                                                     )}
 
+                                                    {/* @ts-ignore */}
                                                     {appt.prescription.notes && (
                                                         <div className="bg-amber-50 rounded-lg p-3 border border-amber-100">
                                                             <p className="text-[9px] font-semibold text-amber-600 uppercase tracking-widest mb-0.5">Notes</p>
+                                                            {/* @ts-ignore */}
                                                             <p className="font-medium text-amber-800 text-xs whitespace-pre-wrap">{appt.prescription.notes}</p>
                                                         </div>
                                                     )}
@@ -274,12 +249,6 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
                                                             className="h-7 px-2.5 text-[10px] font-semibold text-teal-600 border border-teal-200 rounded-md hover:bg-teal-50 transition-colors flex items-center gap-1 no-print"
                                                         >
                                                             <Printer className="w-3 h-3" /> Print
-                                                        </button>
-                                                        <button
-                                                            onClick={() => setEditingPrescription(appt.prescription)}
-                                                            className="h-7 px-2.5 text-[10px] font-semibold text-amber-600 border border-amber-200 rounded-md hover:bg-amber-50 transition-colors flex items-center gap-1 no-print"
-                                                        >
-                                                            <Edit className="w-3 h-3" /> Edit
                                                         </button>
                                                     </div>
                                                 </div>
@@ -297,57 +266,19 @@ export default function PatientHistoryPage({ params }: { params: Promise<{ patie
                 </div>
             </div>
 
-            <Dialog open={!!editingPrescription} onOpenChange={(open) => !open && setEditingPrescription(null)}>
-                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle className="text-lg font-bold text-slate-900">Edit Prescription</DialogTitle>
-                        <DialogDescription>
-                            Updating clinical record for <span className="font-semibold text-teal-600">{patient.name}</span>
-                        </DialogDescription>
-                    </DialogHeader>
-                    {editingPrescription && (
-                        <div className="mt-4">
-                            <PrescriptionForm
-                                initialDiagnosis={editingPrescription.diagnosis}
-                                initialMeds={editingPrescription.medicines}
-                                initialNotes={editingPrescription.notes}
-                                onSave={handleUpdate}
-                                isSubmitting={isUpdating}
-                            />
-                        </div>
-                    )}
-                </DialogContent>
-            </Dialog>
-
-            {/* Hidden print-only prescription template for react-to-print */}
-            <div style={{ position: 'absolute', left: -9999, top: 0 }} aria-hidden="true">
-                <div ref={printRef}>
-                    {printingPrescription && (
-                        <PrescriptionPrintTemplate
-                            clinic={{
-                                name: CLINIC.name,
-                                address: CLINIC.address.fullAddress,
-                                city: CLINIC.address.city,
-                                phone: undefined // Add phone if available
-                            }}
-                            doctor={{
-                                name: printingPrescription.doctor?.name || '',
-                                qualification: (DOCTORS.find(d => d.name.toLowerCase().includes((printingPrescription.doctor?.name || '').toLowerCase()))?.qualifications) || '',
-                                specialization: printingPrescription.doctor?.specialization || ''
-                            }}
-                            patient={{
-                                name: patient.name,
-                                age: undefined, // Add age if available
-                                gender: undefined, // Add gender if available
-                                id: patient.id
-                            }}
-                            date={format(new Date(printingPrescription.appointmentDate), "dd MMMM yyyy")}
-                            medicines={printingPrescription.prescription?.medicines || []}
-                            advice={printingPrescription.prescription?.notes ? printingPrescription.prescription.notes.split('\n').filter(Boolean) : []}
-                        />
-                    )}
+            {/* Print Template - Hidden by default, visible only on print */}
+            {printingPrescription && (
+                <div className="hidden print:block fixed inset-0 bg-white z-[9999] overflow-auto">
+                    <PrescriptionPrint
+                        doctorName={printingPrescription.doctor?.name || "Doctor"}
+                        patientName={patient.name}
+                        diagnosis={printingPrescription.prescription?.diagnosis || ""}
+                        medications={printingPrescription.prescription?.medicines || []}
+                        notes={printingPrescription.prescription?.notes || ""}
+                        date={printingPrescription.appointmentDate}
+                    />
                 </div>
-            </div>
+            )}
         </div>
     );
 }

@@ -20,7 +20,16 @@ export default function Doctor7DayAppointmentsOverview() {
 
     const weekDays = Array.from({ length: 7 }).map((_, i) => addDays(currentWeekStart, i));
 
-    const timeSlots = [
+    // Generate dynamic time slots from actual appointments in the current week
+    const weekAppointments = appointments.filter(a => {
+        const apptDate = new Date(a.appointmentDate);
+        return apptDate >= currentWeekStart && apptDate < addDays(currentWeekStart, 7);
+    });
+
+    const uniqueTimeSlots = [...new Set(weekAppointments.map(a => a.timeSlot))].sort();
+    
+    // If no appointments, show default time slots
+    const timeSlots = uniqueTimeSlots.length > 0 ? uniqueTimeSlots : [
         "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
         "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
         "15:00", "15:30", "16:00", "16:30", "17:00"

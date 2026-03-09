@@ -2,6 +2,15 @@ const prescriptionService = require('./service');
 const { success } = require('../../utils/apiResponse');
 
 class PrescriptionController {
+    async getAll(req, res, next) {
+        try {
+            const prescriptions = await prescriptionService.getAllPrescriptions();
+            return success(res, prescriptions, 'Prescriptions retrieved');
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async getByPatient(req, res, next) {
         try {
             const prescriptions = await prescriptionService.getPrescriptionsByPatient(req.params.patientId);

@@ -25,6 +25,7 @@ class AppointmentRepository {
             include: {
                 patient: { select: { id: true, name: true, phone: true } },
                 doctor: { select: { id: true, name: true, specialization: true } },
+                prescription: true,
             },
             orderBy: [{ appointmentDate: 'asc' }, { timeSlot: 'asc' }],
         });

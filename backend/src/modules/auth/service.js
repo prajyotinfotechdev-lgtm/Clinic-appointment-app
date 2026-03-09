@@ -69,7 +69,7 @@ class AuthService {
             specialization,
         });
 
-        const token = signToken({ userId: doctor.id, role: 'DOCTOR' });
+        const token = signToken({ userId: doctor.id, role: 'DOCTOR', name: doctor.name });
         return { user: this._sanitize(doctor), token };
     }
 
@@ -84,7 +84,7 @@ class AuthService {
             throw new AppError('Invalid email or password', 401);
         }
 
-        const token = signToken({ userId: doctor.id, role: 'DOCTOR' });
+        const token = signToken({ userId: doctor.id, role: 'DOCTOR', name: doctor.name });
         return { user: this._sanitize(doctor), token };
     }
 
@@ -103,7 +103,7 @@ class AuthService {
             passwordHash,
         });
 
-        const token = signToken({ userId: receptionist.id, role: 'RECEPTIONIST' });
+        const token = signToken({ userId: receptionist.id, role: 'RECEPTIONIST', name: receptionist.name });
         return { user: this._sanitize(receptionist), token };
     }
 
@@ -118,7 +118,7 @@ class AuthService {
             throw new AppError('Invalid email or password', 401);
         }
 
-        const token = signToken({ userId: receptionist.id, role: 'RECEPTIONIST' });
+        const token = signToken({ userId: receptionist.id, role: 'RECEPTIONIST', name: receptionist.name });
         return { user: this._sanitize(receptionist), token };
     }
 
