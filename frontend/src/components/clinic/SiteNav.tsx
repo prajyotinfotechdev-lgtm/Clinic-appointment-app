@@ -58,7 +58,7 @@ export function SiteNav() {
               <div className="relative w-[46px] h-[46px] rounded-2xl bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden group-hover:shadow-md transition-all">
                 <Image
                   src="/logo.png"
-                  alt="Star Ortho & Women Care"
+                  alt="Dr. Kalekar Star Clinic"
                   fill
                   sizes="46px"
                   className="object-contain p-1.5"
@@ -66,10 +66,7 @@ export function SiteNav() {
               </div>
               <div className="hidden lg:block leading-[1.15]">
                 <span className="font-extrabold text-[15px] bg-clip-text text-transparent bg-gradient-to-r from-teal-950 to-teal-800 tracking-tight block">
-                  Star Ortho &amp; Women Care
-                </span>
-                <span className="text-[11px] font-bold text-teal-600/70 tracking-widest uppercase">
-                  Wakad, Pune
+                  Dr. Kalekar Star Clinic
                 </span>
               </div>
             </Link>
@@ -77,11 +74,8 @@ export function SiteNav() {
             {/* Clinic Name - Center (Mobile Only) */}
             <div className="absolute left-1/2 -translate-x-1/2 lg:hidden">
               <div className="text-center leading-tight">
-                <div className="font-extrabold text-[13px] bg-clip-text text-transparent bg-gradient-to-r from-teal-950 to-teal-800 tracking-tight whitespace-nowrap">
-                  Star Ortho & Women Care
-                </div>
-                <div className="text-[9px] font-bold text-teal-600/70 tracking-wider uppercase">
-                  Wakad, Pune
+                <div className="font-extrabold text-[14px] bg-clip-text text-transparent bg-gradient-to-r from-teal-950 to-teal-800 tracking-tight whitespace-nowrap">
+                  Dr. Kalekar Star Clinic
                 </div>
               </div>
             </div>

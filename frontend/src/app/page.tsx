@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, MapPin, Clock, ChevronRight, CheckCircle, Shield, Award, Heart } from "lucide-react";
+import { ArrowRight, Phone, MapPin, Clock, ChevronRight, CheckCircle, Shield, Award, Heart, Star, Video, Users, TrendingUp, AlertCircle, ChevronDown } from "lucide-react";
 import { SiteNav } from "@/components/clinic/SiteNav";
 import { SiteFooter } from "@/components/clinic/SiteFooter";
 import { BookingModal } from "@/components/clinic/BookingModal";
+import { PatientFlowModal } from "@/components/clinic/PatientFlowModal";
 
-/* ─── Data ─── */
+/* ─── Dataa ─── */
 const stats = [
   { value: "2+", label: "Specialist Doctors", sub: "Board certified" },
   { value: "10+", label: "Years Experience", sub: "Combined" },
@@ -46,6 +47,71 @@ const marqueeItems = [
   "Joint Pain Treatment", "Fracture Management", "Sports Injury",
   "Pregnancy Care", "PCOS Treatment", "Gynecology Consultation",
   "Knee Pain", "Shoulder Pain", "Laparoscopic Surgery", "Women's Health",
+];
+
+const testimonials = [
+  {
+    name: "Priya Sharma",
+    condition: "PCOS Treatment",
+    rating: 5,
+    text: "Dr. Aparna Kalekar's expertise in treating PCOS has been life-changing. Her personalized approach and care made all the difference. Highly recommended!",
+    date: "2 weeks ago"
+  },
+  {
+    name: "Rajesh Patil",
+    condition: "Knee Pain Treatment",
+    rating: 5,
+    text: "After suffering from knee pain for years, Dr. Rahul Kalekar provided the perfect treatment plan. I'm now pain-free and back to my active lifestyle!",
+    date: "1 month ago"
+  },
+  {
+    name: "Sneha Deshmukh",
+    condition: "Pregnancy Care",
+    rating: 5,
+    text: "The entire pregnancy journey was smooth and stress-free thanks to Dr. Aparna. Her compassionate care and expertise gave us complete peace of mind.",
+    date: "3 weeks ago"
+  },
+  {
+    name: "Amit Kulkarni",
+    condition: "Sports Injury",
+    rating: 5,
+    text: "As an athlete, I needed expert care for my shoulder injury. Dr. Rahul's treatment got me back on the field faster than I expected. Excellent doctor!",
+    date: "2 months ago"
+  }
+];
+
+const faqs = [
+  {
+    question: "How do I book an appointment?",
+    answer: "You can easily book an appointment through our 'Find Your Care' feature on the website, call us at +91 80733 11622, or WhatsApp us. Our team will confirm your appointment within minutes."
+  },
+  {
+    question: "Do you accept insurance?",
+    answer: "Yes, we accept most major health insurance plans. Please bring your insurance card during your visit, and our staff will assist you with the claim process."
+  },
+  {
+    question: "What are your clinic hours?",
+    answer: "We're open Monday to Friday from 5:00 PM to 9:00 PM. We also offer emergency consultations - please call ahead."
+  },
+  {
+    question: "Do you offer video consultations?",
+    answer: "Yes! We provide secure video consultations for follow-ups and non-emergency cases. Book through our patient portal or call us to schedule your online appointment."
+  },
+  {
+    question: "What should I bring for my first visit?",
+    answer: "Please bring a valid ID, insurance card (if applicable), any previous medical records, current medications list, and relevant test reports for your condition."
+  },
+  {
+    question: "Is parking available at the clinic?",
+    answer: "Yes, we have ample parking space available at Sanskruti Arcade. The clinic is easily accessible with dedicated parking for patients."
+  }
+];
+
+const trustBadges = [
+  { icon: Shield, title: "Board Certified", desc: "Recognized specialists" },
+  { icon: Award, title: "10+ Years", desc: "Combined experience" },
+  { icon: Users, title: "5000+ Patients", desc: "Successfully treated" },
+  { icon: TrendingUp, title: "98% Success", desc: "Patient satisfaction" }
 ];
 
 /* ─── Ultra-Premium Hero SVG Illustration ─── */
@@ -165,8 +231,192 @@ function WomenSVG() {
 /* ─── Page ─── */
 export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [patientFlowOpen, setPatientFlowOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSymptom, setSelectedSymptom] = useState<string>("");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const handlePatientFlowComplete = (category: any, symptom: string) => {
+    setSelectedCategory(category);
+    setSelectedSymptom(symptom);
+    setBookingOpen(true);
+  };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
 
   return (
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalClinic",
+            "@id": "https://drkalekarstarclinic.com",
+            "name": "Dr. Kalekar Star Clinic",
+            "alternateName": "Kalekar Star Clinic Wakad",
+            "description": "Leading orthopedic and gynecology clinic in Wakad, Pune offering expert healthcare services by board-certified specialists Dr. Rahul Kalekar and Dr. Aparna Kalekar.",
+            "url": "https://drkalekarstarclinic.com",
+            "logo": "https://drkalekarstarclinic.com/logo.png",
+            "image": "https://drkalekarstarclinic.com/logo.png",
+            "telephone": "+91-80733-11622",
+            "email": "info@drkalekarstarclinic.com",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Sanskruti Arcade, Ground Floor, Shop 6",
+              "addressLocality": "Wakad",
+              "addressRegion": "Maharashtra",
+              "postalCode": "411057",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "18.6123",
+              "longitude": "73.7654"
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "17:00",
+                "closes": "21:00"
+              }
+            ],
+            "priceRange": "$$",
+            "currenciesAccepted": "INR",
+            "paymentAccepted": "Cash, Credit Card, Debit Card, UPI, Insurance",
+            "medicalSpecialty": ["Orthopedic", "Gynecology", "Obstetrics"],
+            "availableService": [
+              {
+                "@type": "MedicalProcedure",
+                "name": "Joint Pain Treatment"
+              },
+              {
+                "@type": "MedicalProcedure",
+                "name": "Fracture Management"
+              },
+              {
+                "@type": "MedicalProcedure",
+                "name": "Sports Injury Treatment"
+              },
+              {
+                "@type": "MedicalProcedure",
+                "name": "PCOS Treatment"
+              },
+              {
+                "@type": "MedicalProcedure",
+                "name": "Pregnancy Care"
+              },
+              {
+                "@type": "MedicalProcedure",
+                "name": "Laparoscopic Surgery"
+              }
+            ],
+            "hasMap": "https://maps.app.goo.gl/EuFotrL9pr4GEsu28",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "150",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "sameAs": [
+              "https://www.facebook.com/drkalekarstarclinic",
+              "https://www.instagram.com/drkalekarstarclinic"
+            ]
+          })
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Physician",
+              "name": "Dr. Rahul Kalekar",
+              "honorificPrefix": "Dr.",
+              "jobTitle": "Consultant Orthopaedic Surgeon",
+              "worksFor": {
+                "@type": "MedicalClinic",
+                "name": "Dr. Kalekar Star Clinic"
+              },
+              "medicalSpecialty": "Orthopedic Surgery",
+              "hasCredential": "MBBS, DNB, D.ORTHO, FIJR",
+              "knowsAbout": ["Joint Pain Treatment", "Fracture Management", "Sports Injury", "Orthopedic Surgery"],
+              "telephone": "+91-80733-11622",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Wakad, Pune",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "IN"
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Physician",
+              "name": "Dr. Aparna Kalekar",
+              "honorificPrefix": "Dr.",
+              "jobTitle": "Laparoscopic Surgeon & Gynaecologist",
+              "worksFor": {
+                "@type": "MedicalClinic",
+                "name": "Dr. Kalekar Star Clinic"
+              },
+              "medicalSpecialty": ["Gynecology", "Obstetrics", "Laparoscopic Surgery"],
+              "hasCredential": "MBBS, MS OBGY",
+              "knowsAbout": ["Pregnancy Care", "PCOS Treatment", "Gynecology Consultation", "Laparoscopic Surgery"],
+              "telephone": "+91-80733-11622",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Wakad, Pune",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "IN"
+              }
+            }
+          ])
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          })
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://drkalekarstarclinic.com",
+            "name": "Dr. Kalekar Star Clinic",
+            "description": "Best Orthopedic and Gynecology Clinic in Wakad, Pune",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://drkalekarstarclinic.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }}
+      />
+
     <div className="min-h-screen bg-white text-slate-800 antialiased">
       <SiteNav />
 
@@ -188,24 +438,27 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-[2.25rem] sm:text-5xl lg:text-[64px] font-extrabold tracking-tight leading-[1.15] sm:leading-[1.04] mb-5 sm:mb-6">
-                Exceptional Care<br />
+                Dr. Kalekar<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-400">
-                  for Every Stage
+                  Star Clinic
                 </span>
-                <br />of Life
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300/80 leading-relaxed mb-6 sm:mb-8 max-w-md">
-                Expert orthopaedic and women&apos;s healthcare by board-certified specialists,
-                right in the heart of Wakad.
+                Expert <strong>orthopedic surgeon</strong> Dr. Rahul Kalekar & <strong>gynecologist</strong> Dr. Aparna Kalekar. Specialized treatment for joint pain, PCOS, pregnancy care, fractures & women&apos;s health.
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8 sm:mb-10 w-full sm:w-auto">
                 <button
-                  onClick={() => setBookingOpen(true)}
+                  onClick={() => setPatientFlowOpen(true)}
                   className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-teal-500 hover:bg-teal-400 text-white font-bold rounded-xl shadow-xl shadow-teal-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] text-base sm:text-[15px] w-full sm:w-auto"
                 >
-                  Book Appointment <ArrowRight className="h-4 w-4" />
+                  Find Your Care <ArrowRight className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setBookingOpen(true)}
+                  className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-white/8 hover:bg-white/14 border border-white/15 text-white font-semibold rounded-xl transition-all text-base sm:text-[15px] w-full sm:w-auto">
+                  <Video className="h-4 w-4" /> Video Consult
                 </button>
                 <Link href="/login"
                   className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-white/8 hover:bg-white/14 border border-white/15 text-white font-semibold rounded-xl transition-all text-base sm:text-[15px] w-full sm:w-auto">
@@ -219,7 +472,7 @@ export default function HomePage() {
 
               {/* Trust badges */}
               <div className="flex flex-wrap gap-x-4 gap-y-2">
-                {["Board Certified", "5000+ Patients", "Wakad, Pune"].map((b) => (
+                {["Board Certified Specialists", "5000+ Happy Patients", "Wakad, Pune"].map((b) => (
                   <div key={b} className="flex items-center gap-1.5 text-sm text-teal-200/70 font-medium">
                     <CheckCircle className="h-3.5 w-3.5 text-teal-400" /> {b}
                   </div>
@@ -254,17 +507,50 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* ══════════════ EMERGENCY BANNER ══════════════ */}
+      <div className="bg-gradient-to-r from-red-50 to-orange-50 border-y border-red-100">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center justify-center gap-3 text-center flex-wrap">
+            <AlertCircle className="h-5 w-5 text-red-600 shrink-0" />
+            <p className="text-sm font-bold text-slate-800">
+              <span className="text-red-600">Emergency?</span> Call us immediately at{" "}
+              <a href="tel:+918073311622" className="text-teal-700 hover:text-teal-800 underline">+91 80733 11622</a>
+              {" "}for urgent medical assistance
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* ══════════════ STATS ══════════════ */}
       <section className="py-10 sm:py-14 lg:py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-6">
             {stats.map((s) => (
               <div key={s.label} className="text-center group py-2">
-                <div className="text-4xl sm:text-5xl font-extrabold text-teal-700 tracking-tight mb-2 group-hover:text-teal-600 transition-colors">
+                <div className="text-4xl sm:text-5xl font-extrabold text-teal-700 tracking-tight mb-2 group-hover:text-teal-600 transition-colors group-hover:scale-110 transition-transform duration-300">
                   {s.value}
                 </div>
                 <div className="text-sm sm:text-base font-bold text-slate-800">{s.label}</div>
                 <div className="text-xs sm:text-sm text-slate-400 font-medium mt-1">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════ TRUST BADGES ══════════════ */}
+      <section className="py-8 sm:py-10 bg-gradient-to-br from-teal-50 to-white border-b border-teal-100">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {trustBadges.map((badge) => (
+              <div key={badge.title} className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-teal-100/50">
+                <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
+                  <badge.icon className="h-5 w-5 text-teal-600" />
+                </div>
+                <div>
+                  <div className="font-extrabold text-slate-900 text-sm">{badge.title}</div>
+                  <div className="text-xs text-slate-500">{badge.desc}</div>
+                </div>
               </div>
             ))}
           </div>
@@ -352,14 +638,14 @@ export default function HomePage() {
                   ))}
                 </div>
                 <button
-                  onClick={() => setBookingOpen(true)}
+                  onClick={() => setPatientFlowOpen(true)}
                   className={`flex items-center justify-center gap-2 w-full py-3 sm:py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] ${
                     doc.color === "teal"
                       ? "bg-teal-600 hover:bg-teal-500 text-white"
                       : "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-400 hover:to-pink-400 text-white"
                   }`}
                 >
-                  Book Appointment <ArrowRight className="h-3.5 w-3.5" />
+                  Find Your Care <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
             ))}
@@ -423,6 +709,109 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ══════════════ TESTIMONIALS ══════════════ */}
+      <section className="py-12 sm:py-16 lg:py-28 bg-gradient-to-br from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-teal-100 rounded-full shadow-sm mb-4">
+              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+              <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Patient Reviews</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Patients Say</span>
+            </h2>
+            <p className="text-slate-500 mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+              Real experiences from real patients who trusted us with their healthcare.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {testimonials.map((testimonial, idx) => (
+              <div key={idx} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                  ))}
+                </div>
+                <p className="text-slate-700 leading-relaxed mb-5 text-sm sm:text-base">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <div>
+                    <div className="font-extrabold text-slate-900 text-sm sm:text-base">{testimonial.name}</div>
+                    <div className="text-xs text-teal-600 font-semibold">{testimonial.condition}</div>
+                  </div>
+                  <div className="text-xs text-slate-400 font-medium">{testimonial.date}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8 sm:mt-10">
+            <a href="https://www.google.com/search?q=dr+kalekar+star+clinic+reviews" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-teal-600 text-teal-700 font-bold rounded-xl hover:bg-teal-50 transition-all">
+              <Star className="w-4 h-4" /> Read More Reviews on Google
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════ FAQ ══════════════ */}
+      <section className="py-12 sm:py-16 lg:py-28 bg-white">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-50 border border-teal-100 rounded-full shadow-sm mb-4">
+              <CheckCircle className="w-4 h-4 text-teal-600" />
+              <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Common Questions</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Questions</span>
+            </h2>
+            <p className="text-slate-500 mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+              Everything you need to know about our services and appointments.
+            </p>
+          </div>
+
+          <div className="space-y-3 sm:space-y-4">
+            {faqs.map((faq, idx) => (
+              <div key={idx} className="bg-white border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden hover:border-teal-300 transition-colors">
+                <button
+                  onClick={() => toggleFaq(idx)}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors"
+                >
+                  <span className="font-extrabold text-slate-900 text-sm sm:text-base pr-4">{faq.question}</span>
+                  <ChevronDown className={`w-5 h-5 text-teal-600 shrink-0 transition-transform duration-300 ${
+                    openFaqIndex === idx ? 'rotate-180' : ''
+                  }`} />
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${
+                  openFaqIndex === idx ? 'max-h-96' : 'max-h-0'
+                }`}>
+                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
+                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10 sm:mt-12">
+            <p className="text-slate-500 mb-4 text-sm sm:text-base">Still have questions?</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="tel:+918073311622"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition-all">
+                <Phone className="w-4 h-4" /> Call Us Now
+              </a>
+              <a href="https://wa.me/918073311622" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all">
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.554 4.127 1.527 5.86L.057 23.95l6.264-1.644A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.819 9.819 0 01-5.012-1.374l-.36-.214-3.72.976 1.002-3.634-.234-.373A9.82 9.82 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+                WhatsApp Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══════════════ CTA BANNER ══════════════ */}
       <section className="py-12 sm:py-16 lg:py-28 relative overflow-hidden bg-gradient-to-br from-teal-700 to-teal-900">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
@@ -438,9 +827,9 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto">
             <button
-              onClick={() => setBookingOpen(true)}
+              onClick={() => setPatientFlowOpen(true)}
               className="flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-4 bg-white text-teal-900 font-extrabold rounded-xl hover:bg-teal-50 shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] text-base sm:text-[15px] w-full sm:w-auto">
-              <CheckCircle className="h-4 w-4" /> Book Appointment
+              <CheckCircle className="h-4 w-4" /> Find Your Care
             </button>
             <a href="tel:+918073311622"
               className="flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-4 border-2 border-white/25 text-white font-bold rounded-xl hover:bg-white/8 transition-all text-base sm:text-[15px] w-full sm:w-auto">
@@ -460,16 +849,16 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 sm:gap-6 lg:gap-8 items-start">
             <div className="lg:col-span-3 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xl h-56 sm:h-80 lg:h-[420px]">
               <iframe
-                src="https://maps.google.com/maps?q=Wakad+Pune+Maharashtra+India&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15124.936!2d73.7654!3d18.6123!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM2JzQ0LjQiTiA3M8KwNDUnNTUuNiJF!5e0!3m2!1sen!2sin!4v1710328800000!5m2!1sen!2sin"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade" title="Star Ortho & Women Care Location"
+                referrerPolicy="no-referrer-when-downgrade" title="Dr. Kalekar Star Clinic Location"
               />
             </div>
             <div className="lg:col-span-2 space-y-3 sm:space-y-4">
               {[
                 { icon: MapPin, title: "Address", body: "Sanskruti Arcade, Ground Floor, Shop 6, Wakad, Pune, Maharashtra", extra: null },
                 { icon: Phone, title: "Phone", body: "+91 80733 11622", extra: "call" },
-                { icon: Clock, title: "Clinic Hours", body: "Mon – Sat: 9:00 AM – 8:00 PM\nSunday: 10:00 AM – 2:00 PM", extra: null },
+                { icon: Clock, title: "Clinic Hours", body: "Monday – Friday: 5:00 PM – 9:00 PM", extra: null },
               ].map((item) => (
                 <div key={item.title} className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm">
                   <div className="flex gap-3 sm:gap-4">
@@ -512,7 +901,7 @@ export default function HomePage() {
           className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center shadow-lg shadow-teal-500/35 transition-all hover:scale-110 active:scale-95">
           <Phone className="h-5 w-5 sm:h-6 sm:w-6" />
         </a>
-        <button onClick={() => setBookingOpen(true)} title="Book Appointment"
+        <button onClick={() => setPatientFlowOpen(true)} title="Find Your Care"
           className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-900 hover:bg-teal-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/35 transition-all hover:scale-110 active:scale-95">
           <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -520,8 +909,14 @@ export default function HomePage() {
         </button>
       </div>
 
+      <PatientFlowModal 
+        open={patientFlowOpen} 
+        onClose={() => setPatientFlowOpen(false)}
+        onBookAppointment={handlePatientFlowComplete}
+      />
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
+    </>
   );
 }
 

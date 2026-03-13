@@ -7,9 +7,7 @@ import { BookingModal } from "@/components/clinic/BookingModal";
 import { Phone, MapPin, Clock, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
 
 const hours = [
-  { day: "Monday – Friday", time: "9:00 AM – 8:00 PM" },
-  { day: "Saturday", time: "9:00 AM – 6:00 PM" },
-  { day: "Sunday", time: "10:00 AM – 2:00 PM" },
+  { day: "Monday – Friday", time: "5:00 PM – 9:00 PM" },
 ];
 
 export default function ContactPage() {
