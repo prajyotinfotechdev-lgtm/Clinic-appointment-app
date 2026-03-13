@@ -428,61 +428,61 @@ export default function HomePage() {
         <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-teal-500/8 rounded-full blur-[120px] pointer-events-none max-w-full" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-600/6 rounded-full blur-[100px] pointer-events-none max-w-full" />
 
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8 lg:py-0 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[auto] lg:min-h-[92vh] pt-20 pb-8 sm:pt-24 sm:pb-12 lg:py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-0 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[auto] lg:min-h-[92vh] pt-24 pb-12 sm:pt-28 sm:pb-16 lg:py-20">
             {/* Left – Content */}
             <div className="flex flex-col items-start text-left max-w-xl mx-auto lg:mx-0 relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-teal-500/15 border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-semibold mb-5 sm:mb-6">
-                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+              <div className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-teal-500/15 backdrop-blur-sm border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-bold mb-6 sm:mb-7 shadow-lg shadow-teal-500/10">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-lg shadow-teal-400/50" />
                 Wakad&apos;s Leading Specialist Clinic
               </div>
 
-              <h1 className="text-[2.25rem] sm:text-5xl lg:text-[64px] font-extrabold tracking-tight leading-[1.15] sm:leading-[1.04] mb-5 sm:mb-6">
+              <h1 className="text-[2.5rem] sm:text-5xl lg:text-[68px] font-extrabold tracking-tight leading-[1.1] sm:leading-[1.02] mb-6 sm:mb-7">
                 Dr. Kalekar<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-teal-400 to-emerald-400 drop-shadow-[0_0_30px_rgba(45,212,191,0.3)]">
                   Star Clinic
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300/80 leading-relaxed mb-6 sm:mb-8 max-w-md">
-                Expert <strong>orthopedic surgeon</strong> Dr. Rahul Kalekar & <strong>gynecologist</strong> Dr. Aparna Kalekar. Specialized treatment for joint pain, PCOS, pregnancy care, fractures & women&apos;s health.
+              <p className="text-[15px] sm:text-lg text-slate-300/90 leading-[1.7] mb-8 sm:mb-9 max-w-md font-medium">
+                Expert <strong className="text-white font-bold">orthopedic surgeon</strong> Dr. Rahul Kalekar & <strong className="text-white font-bold">gynecologist</strong> Dr. Aparna Kalekar. Specialized treatment for joint pain, PCOS, pregnancy care, fractures & women&apos;s health.
               </p>
 
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8 sm:mb-10 w-full sm:w-auto">
+              <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2.5 sm:gap-3.5 mb-8 sm:mb-10 w-full sm:w-auto">
                 <button
                   onClick={() => setPatientFlowOpen(true)}
-                  className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-teal-500 hover:bg-teal-400 text-white font-bold rounded-xl shadow-xl shadow-teal-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] text-base sm:text-[15px] w-full sm:w-auto"
+                  className="group flex items-center justify-center gap-1.5 sm:gap-2.5 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold rounded-lg sm:rounded-xl shadow-xl sm:shadow-2xl shadow-teal-500/30 transition-all hover:scale-[1.03] active:scale-[0.98] text-xs sm:text-[15px] w-full sm:w-auto"
                 >
-                  Find Your Care <ArrowRight className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setBookingOpen(true)}
-                  className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-white/8 hover:bg-white/14 border border-white/15 text-white font-semibold rounded-xl transition-all text-base sm:text-[15px] w-full sm:w-auto">
-                  <Video className="h-4 w-4" /> Video Consult
+                  <span className="hidden sm:inline">Find Your Care</span>
+                  <span className="sm:hidden">Find Care</span>
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <Link href="/login"
-                  className="flex items-center justify-center gap-2 px-6 py-4 sm:px-7 sm:py-4 bg-white/8 hover:bg-white/14 border border-white/15 text-white font-semibold rounded-xl transition-all text-base sm:text-[15px] w-full sm:w-auto">
-                  Patient Portal
+                  className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 py-3 sm:px-6 sm:py-3 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-white/25 text-white/90 hover:text-white font-semibold rounded-lg transition-all text-xs sm:text-sm w-full sm:w-auto">
+                  <span className="hidden sm:inline">Patient Portal</span>
+                  <span className="sm:hidden">Portal</span>
                 </Link>
                 <a href="tel:+918073311622"
-                  className="flex items-center justify-center gap-2 px-6 py-4 sm:py-4 border border-white/12 hover:bg-white/8 text-white/80 font-semibold rounded-xl transition-all text-base sm:text-[15px] w-full sm:w-auto">
-                  <Phone className="h-4 w-4" /> Call Now
+                  className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 py-3 sm:px-6 sm:py-3 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-white/25 text-white/90 hover:text-white font-semibold rounded-lg transition-all text-xs sm:text-sm w-full sm:w-auto">
+                  <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Call Now</span>
+                  <span className="sm:hidden">Call</span>
                 </a>
               </div>
 
               {/* Trust badges */}
-              <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <div className="flex flex-wrap gap-x-5 gap-y-2.5 pt-2">
                 {["Board Certified Specialists", "5000+ Happy Patients", "Wakad, Pune"].map((b) => (
-                  <div key={b} className="flex items-center gap-1.5 text-sm text-teal-200/70 font-medium">
-                    <CheckCircle className="h-3.5 w-3.5 text-teal-400" /> {b}
+                  <div key={b} className="flex items-center gap-2 text-sm text-teal-200/80 font-semibold">
+                    <CheckCircle className="h-4 w-4 text-teal-400" /> {b}
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Right – SVG illustration */}
-            <div className="flex items-center justify-center relative mt-8 lg:mt-0 mb-0 lg:mb-0">
-              <div className="w-[240px] h-[240px] sm:w-[340px] sm:h-[340px] lg:w-[440px] lg:h-[440px] relative animate-float">
+            <div className="flex items-center justify-center relative mt-10 lg:mt-0 mb-0 lg:mb-0">
+              <div className="w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] lg:w-[460px] lg:h-[460px] relative animate-float">
                 <HeroIllustration />
               </div>
             </div>
@@ -522,16 +522,16 @@ export default function HomePage() {
       </div>
 
       {/* ══════════════ STATS ══════════════ */}
-      <section className="py-10 sm:py-14 lg:py-16 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-6">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
             {stats.map((s) => (
-              <div key={s.label} className="text-center group py-2">
-                <div className="text-4xl sm:text-5xl font-extrabold text-teal-700 tracking-tight mb-2 group-hover:text-teal-600 transition-colors group-hover:scale-110 transition-transform duration-300">
+              <div key={s.label} className="text-center group py-3 sm:py-4">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-br from-teal-700 to-teal-600 bg-clip-text text-transparent tracking-tight mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
                   {s.value}
                 </div>
-                <div className="text-sm sm:text-base font-bold text-slate-800">{s.label}</div>
-                <div className="text-xs sm:text-sm text-slate-400 font-medium mt-1">{s.sub}</div>
+                <div className="text-xs sm:text-sm lg:text-base font-bold text-slate-800 leading-tight">{s.label}</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm text-slate-400 font-medium mt-1">{s.sub}</div>
               </div>
             ))}
           </div>
@@ -539,17 +539,17 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ TRUST BADGES ══════════════ */}
-      <section className="py-8 sm:py-10 bg-gradient-to-br from-teal-50 to-white border-b border-teal-100">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <section className="py-10 sm:py-12 lg:py-14 bg-gradient-to-br from-teal-50 via-white to-teal-50/30 border-b border-teal-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
             {trustBadges.map((badge) => (
-              <div key={badge.title} className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-teal-100/50">
-                <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center shrink-0">
-                  <badge.icon className="h-5 w-5 text-teal-600" />
+              <div key={badge.title} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md border border-teal-100/50 hover:border-teal-200 transition-all hover:-translate-y-1">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-teal-100 to-teal-50 flex items-center justify-center shrink-0 shadow-inner">
+                  <badge.icon className="h-5 w-5 sm:h-6 sm:w-6 text-teal-600" />
                 </div>
-                <div>
-                  <div className="font-extrabold text-slate-900 text-sm">{badge.title}</div>
-                  <div className="text-xs text-slate-500">{badge.desc}</div>
+                <div className="text-center sm:text-left">
+                  <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight">{badge.title}</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">{badge.desc}</div>
                 </div>
               </div>
             ))}
@@ -558,35 +558,35 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ WHY CHOOSE US ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 relative bg-[#f8fafc] overflow-hidden">
+      <section className="py-16 sm:py-20 lg:py-32 relative bg-[#f8fafc] overflow-hidden">
         {/* Soft background ambient glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-teal-100/40 rounded-[100%] blur-[100px] pointer-events-none max-w-full" />
         
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-teal-100 rounded-full shadow-sm mb-4">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14 lg:mb-20">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-teal-100 rounded-full shadow-sm mb-5 sm:mb-6">
               <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-              <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Why Choose Us</span>
+              <span className="text-[10px] sm:text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Why Choose Us</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] px-4">
               Healthcare You Can <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Trust</span>
             </h2>
-            <p className="text-slate-500 mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+            <p className="text-slate-500 mt-5 sm:mt-6 text-sm sm:text-base lg:text-[17px] leading-relaxed px-4">
               Combining clinical expertise with modern facilities for the best possible patient outcomes.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7">
             {features.map((f) => (
               <div key={f.title}
-                className="relative bg-white/60 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group z-10 overflow-hidden">
+                className="relative bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 border border-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 group z-10 overflow-hidden">
                 {/* Glass reflection */}
                 <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 to-transparent opacity-50" />
                 
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100/50 flex items-center justify-center mb-5 sm:mb-6 border border-teal-100/50 group-hover:scale-110 transition-transform duration-300 shadow-inner">
-                  <f.icon className="h-5 w-5 sm:h-6 sm:w-6 text-teal-600 drop-shadow-sm" />
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100/50 flex items-center justify-center mb-5 sm:mb-6 border border-teal-100/50 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <f.icon className="h-6 w-6 sm:h-7 sm:w-7 text-teal-600 drop-shadow-sm" />
                 </div>
-                <h3 className="relative font-extrabold text-slate-900 text-base sm:text-lg mb-2 sm:mb-2.5 tracking-tight">{f.title}</h3>
-                <p className="relative text-slate-500 text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="relative font-extrabold text-slate-900 text-base sm:text-lg mb-2.5 sm:mb-3 tracking-tight leading-tight">{f.title}</h3>
+                <p className="relative text-slate-500 text-sm sm:text-[15px] leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -594,12 +594,12 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ DOCTORS PREVIEW ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 mb-8 sm:mb-10 lg:mb-14">
+      <section className="py-16 sm:py-20 lg:py-32 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-4 mb-10 sm:mb-12 lg:mb-16">
             <div>
-              <span className="text-xs font-bold text-teal-400 uppercase tracking-[0.15em]">Our Specialists</span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mt-2 sm:mt-3 tracking-tight">
+              <span className="text-[10px] sm:text-xs font-bold text-teal-400 uppercase tracking-[0.15em]">Our Specialists</span>
+              <h2 className="text-[1.75rem] sm:text-3xl lg:text-4xl font-extrabold text-white mt-2 sm:mt-3 tracking-tight">
                 Meet Our Doctors
               </h2>
             </div>
@@ -609,12 +609,12 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
             {doctors.map((doc) => (
               <div key={doc.name}
-                className="bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-7 transition-all group">
-                <div className="flex items-start gap-4 sm:gap-5 mb-4 sm:mb-5">
-                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg sm:text-xl text-white shrink-0 shadow-lg ${
+                className="bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/10 hover:border-white/20 rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 transition-all duration-300 group hover:-translate-y-1 shadow-xl hover:shadow-2xl">
+                <div className="flex items-start gap-4 sm:gap-5 mb-5 sm:mb-6">
+                  <div className={`w-16 h-16 sm:w-18 sm:h-18 rounded-2xl flex items-center justify-center font-extrabold text-xl sm:text-2xl text-white shrink-0 shadow-lg ${
                     doc.color === "teal"
                       ? "bg-gradient-to-br from-teal-400 to-teal-700"
                       : "bg-gradient-to-br from-rose-400 to-pink-600"
@@ -622,24 +622,24 @@ export default function HomePage() {
                     {doc.initial}
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-white text-base sm:text-lg leading-tight">{doc.name}</h3>
-                    <p className={`text-xs sm:text-sm font-bold mt-0.5 ${doc.color === "teal" ? "text-teal-400" : "text-rose-400"}`}>
+                    <h3 className="font-extrabold text-white text-base sm:text-lg lg:text-xl leading-tight">{doc.name}</h3>
+                    <p className={`text-xs sm:text-sm font-bold mt-1 ${doc.color === "teal" ? "text-teal-400" : "text-rose-400"}`}>
                       {doc.qualifications}
                     </p>
-                    <p className="text-slate-400 text-xs mt-0.5 sm:mt-1">{doc.title}</p>
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1">{doc.title}</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-1.5 mb-5 sm:mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-2 mb-6 sm:mb-7">
                   {doc.specs.map((s) => (
-                    <div key={s} className="flex items-center gap-2 sm:gap-1.5">
-                      <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${doc.color === "teal" ? "bg-teal-400" : "bg-rose-400"}`} />
-                      <span className="text-slate-300 text-xs sm:text-xs font-medium">{s}</span>
+                    <div key={s} className="flex items-center gap-2.5">
+                      <div className={`w-2 h-2 rounded-full shrink-0 ${doc.color === "teal" ? "bg-teal-400" : "bg-rose-400"}`} />
+                      <span className="text-slate-300 text-xs sm:text-sm font-medium">{s}</span>
                     </div>
                   ))}
                 </div>
                 <button
                   onClick={() => setPatientFlowOpen(true)}
-                  className={`flex items-center justify-center gap-2 w-full py-3 sm:py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] ${
+                  className={`flex items-center justify-center gap-2 w-full py-3.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg ${
                     doc.color === "teal"
                       ? "bg-teal-600 hover:bg-teal-500 text-white"
                       : "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-400 hover:to-pink-400 text-white"
@@ -654,12 +654,12 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ SERVICES PREVIEW ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 mb-8 sm:mb-10 lg:mb-14">
+      <section className="py-16 sm:py-20 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-4 mb-10 sm:mb-12 lg:mb-16">
             <div>
-              <span className="text-xs font-bold text-teal-600 uppercase tracking-[0.15em]">What We Treat</span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-2 sm:mt-3 tracking-tight">
+              <span className="text-[10px] sm:text-xs font-bold text-teal-600 uppercase tracking-[0.15em]">What We Treat</span>
+              <h2 className="text-[1.75rem] sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-2 sm:mt-3 tracking-tight">
                 Our Services
               </h2>
             </div>
@@ -669,39 +669,39 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
             {/* Orthopaedic */}
-            <div className="bg-gradient-to-br from-teal-50 to-white rounded-2xl sm:rounded-3xl border border-teal-100 p-5 sm:p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group">
+            <div className="bg-gradient-to-br from-teal-50 to-white rounded-2xl sm:rounded-3xl border border-teal-100 p-6 sm:p-7 lg:p-9 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
               <OrthoSVG />
-              <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 text-center mt-3 sm:mt-4 mb-1">Orthopaedic Care</h3>
-              <p className="text-teal-600 text-sm font-semibold text-center mb-5 sm:mb-6">Dr. Rahul Kalekar</p>
-              <div className="space-y-2 sm:space-y-2.5">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 text-center mt-4 sm:mt-5 mb-1.5">Orthopaedic Care</h3>
+              <p className="text-teal-600 text-sm sm:text-base font-bold text-center mb-6 sm:mb-7">Dr. Rahul Kalekar</p>
+              <div className="space-y-2.5 sm:space-y-3">
                 {["Joint Pain Treatment", "Fracture Management", "Sports Injury Treatment", "Knee & Shoulder Pain"].map((s) => (
-                  <div key={s} className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white/70 rounded-lg sm:rounded-xl hover:bg-teal-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-teal-500 shrink-0" />
-                    <span className="text-sm font-semibold text-slate-700">{s}</span>
+                  <div key={s} className="flex items-center gap-3 p-3 sm:p-3.5 bg-white/80 rounded-xl hover:bg-teal-50 hover:shadow-sm transition-all">
+                    <CheckCircle className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-teal-500 shrink-0" />
+                    <span className="text-sm sm:text-base font-semibold text-slate-700">{s}</span>
                   </div>
                 ))}
               </div>
-              <Link href="/services" className="flex items-center justify-center gap-1.5 mt-5 sm:mt-6 text-teal-600 text-sm font-bold hover:gap-2.5 transition-all">
+              <Link href="/services" className="flex items-center justify-center gap-2 mt-6 sm:mt-7 text-teal-600 text-sm sm:text-base font-bold hover:gap-3 transition-all">
                 View All Services <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
             {/* Women's Health */}
-            <div className="bg-gradient-to-br from-rose-50 to-white rounded-2xl sm:rounded-3xl border border-rose-100 p-5 sm:p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group">
+            <div className="bg-gradient-to-br from-rose-50 to-white rounded-2xl sm:rounded-3xl border border-rose-100 p-6 sm:p-7 lg:p-9 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
               <WomenSVG />
-              <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 text-center mt-3 sm:mt-4 mb-1">Women&apos;s Health</h3>
-              <p className="text-rose-500 text-sm font-semibold text-center mb-5 sm:mb-6">Dr. Aparna Kalekar</p>
-              <div className="space-y-2 sm:space-y-2.5">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 text-center mt-4 sm:mt-5 mb-1.5">Women&apos;s Health</h3>
+              <p className="text-rose-500 text-sm sm:text-base font-bold text-center mb-6 sm:mb-7">Dr. Aparna Kalekar</p>
+              <div className="space-y-2.5 sm:space-y-3">
                 {["Pregnancy Care", "Gynecology Consultation", "PCOS Treatment", "Laparoscopic Surgery"].map((s) => (
-                  <div key={s} className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white/70 rounded-lg sm:rounded-xl hover:bg-rose-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-rose-400 shrink-0" />
-                    <span className="text-sm font-semibold text-slate-700">{s}</span>
+                  <div key={s} className="flex items-center gap-3 p-3 sm:p-3.5 bg-white/80 rounded-xl hover:bg-rose-50 hover:shadow-sm transition-all">
+                    <CheckCircle className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-rose-400 shrink-0" />
+                    <span className="text-sm sm:text-base font-semibold text-slate-700">{s}</span>
                   </div>
                 ))}
               </div>
-              <Link href="/services" className="flex items-center justify-center gap-1.5 mt-5 sm:mt-6 text-rose-500 text-sm font-bold hover:gap-2.5 transition-all">
+              <Link href="/services" className="flex items-center justify-center gap-2 mt-6 sm:mt-7 text-rose-500 text-sm sm:text-base font-bold hover:gap-3 transition-all">
                 View All Services <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -710,44 +710,44 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ TESTIMONIALS ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 bg-gradient-to-br from-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-teal-100 rounded-full shadow-sm mb-4">
+      <section className="py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14 lg:mb-20">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-teal-100 rounded-full shadow-sm mb-5 sm:mb-6">
               <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-              <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Patient Reviews</span>
+              <span className="text-[10px] sm:text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Patient Reviews</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] px-4">
               What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Patients Say</span>
             </h2>
-            <p className="text-slate-500 mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+            <p className="text-slate-500 mt-5 sm:mt-6 text-sm sm:text-base lg:text-[17px] leading-relaxed px-4">
               Real experiences from real patients who trusted us with their healthcare.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
             {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex items-center gap-1 mb-4">
+              <div key={idx} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-center gap-1 mb-5">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 fill-yellow-500" />
                   ))}
                 </div>
-                <p className="text-slate-700 leading-relaxed mb-5 text-sm sm:text-base">
+                <p className="text-slate-700 leading-[1.7] mb-6 text-sm sm:text-base font-medium">
                   &ldquo;{testimonial.text}&rdquo;
                 </p>
-                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <div className="flex items-center justify-between pt-5 border-t border-slate-100">
                   <div>
                     <div className="font-extrabold text-slate-900 text-sm sm:text-base">{testimonial.name}</div>
-                    <div className="text-xs text-teal-600 font-semibold">{testimonial.condition}</div>
+                    <div className="text-xs sm:text-sm text-teal-600 font-bold mt-0.5">{testimonial.condition}</div>
                   </div>
-                  <div className="text-xs text-slate-400 font-medium">{testimonial.date}</div>
+                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">{testimonial.date}</div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-8 sm:mt-10">
+          <div className="text-center mt-10 sm:mt-12">
             <a href="https://www.google.com/search?q=dr+kalekar+star+clinic+reviews" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-teal-600 text-teal-700 font-bold rounded-xl hover:bg-teal-50 transition-all">
               <Star className="w-4 h-4" /> Read More Reviews on Google
@@ -757,38 +757,38 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ FAQ ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 bg-white">
-        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-50 border border-teal-100 rounded-full shadow-sm mb-4">
+      <section className="py-16 sm:py-20 lg:py-32 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-14 lg:mb-20">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-teal-50 border border-teal-100 rounded-full shadow-sm mb-5 sm:mb-6">
               <CheckCircle className="w-4 h-4 text-teal-600" />
-              <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Common Questions</span>
+              <span className="text-[10px] sm:text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Common Questions</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] px-4">
               Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Questions</span>
             </h2>
-            <p className="text-slate-500 mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+            <p className="text-slate-500 mt-5 sm:mt-6 text-sm sm:text-base lg:text-[17px] leading-relaxed px-4">
               Everything you need to know about our services and appointments.
             </p>
           </div>
 
           <div className="space-y-3 sm:space-y-4">
             {faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden hover:border-teal-300 transition-colors">
+              <div key={idx} className="bg-white border-2 border-slate-200 rounded-2xl overflow-hidden hover:border-teal-300 hover:shadow-md transition-all">
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-between p-5 sm:p-6 lg:p-7 text-left hover:bg-slate-50 transition-colors"
                 >
-                  <span className="font-extrabold text-slate-900 text-sm sm:text-base pr-4">{faq.question}</span>
-                  <ChevronDown className={`w-5 h-5 text-teal-600 shrink-0 transition-transform duration-300 ${
+                  <span className="font-extrabold text-slate-900 text-sm sm:text-base lg:text-lg pr-4 leading-tight">{faq.question}</span>
+                  <ChevronDown className={`w-5 h-5 sm:w-6 sm:h-6 text-teal-600 shrink-0 transition-transform duration-300 ${
                     openFaqIndex === idx ? 'rotate-180' : ''
                   }`} />
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${
                   openFaqIndex === idx ? 'max-h-96' : 'max-h-0'
                 }`}>
-                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
-                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{faq.answer}</p>
+                  <div className="px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 lg:pb-7 pt-0">
+                    <p className="text-slate-600 leading-[1.7] text-sm sm:text-base font-medium">{faq.answer}</p>
                   </div>
                 </div>
               </div>
@@ -813,27 +813,28 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════ CTA BANNER ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-28 relative overflow-hidden bg-gradient-to-br from-teal-700 to-teal-900">
+      <section className="py-16 sm:py-20 lg:py-32 relative overflow-hidden bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
-        <div className="absolute -top-24 -right-24 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold text-teal-200 uppercase tracking-[0.15em]">Get Started Today</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white mt-3 sm:mt-4 mb-4 sm:mb-5 tracking-tight max-w-2xl mx-auto leading-tight">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-teal-200 uppercase tracking-[0.15em]">Get Started Today</span>
+          <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-white mt-4 sm:mt-5 mb-5 sm:mb-6 tracking-tight max-w-2xl mx-auto leading-[1.15] px-4">
             Ready to Experience<br className="hidden sm:block" /><span className="sm:hidden"> </span>Premium Healthcare?
           </h2>
-          <p className="text-teal-100/65 text-sm sm:text-base max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
+          <p className="text-teal-100/70 text-sm sm:text-base lg:text-lg max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed px-4">
             Schedule your appointment with our specialists in just a few clicks — or give us a call.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto max-w-md sm:max-w-none mx-auto">
             <button
               onClick={() => setPatientFlowOpen(true)}
-              className="flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-4 bg-white text-teal-900 font-extrabold rounded-xl hover:bg-teal-50 shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98] text-base sm:text-[15px] w-full sm:w-auto">
-              <CheckCircle className="h-4 w-4" /> Find Your Care
+              className="flex items-center justify-center gap-2.5 px-7 py-4 sm:px-9 sm:py-4.5 bg-white text-teal-900 font-extrabold rounded-xl hover:bg-teal-50 shadow-2xl transition-all hover:scale-[1.03] active:scale-[0.98] text-base sm:text-base w-full sm:w-auto">
+              <CheckCircle className="h-5 w-5" /> Find Your Care
             </button>
             <a href="tel:+918073311622"
-              className="flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-4 border-2 border-white/25 text-white font-bold rounded-xl hover:bg-white/8 transition-all text-base sm:text-[15px] w-full sm:w-auto">
-              <Phone className="h-4 w-4" /> Call +91 80733 11622
+              className="flex items-center justify-center gap-2.5 px-7 py-4 sm:px-9 sm:py-4.5 border-2 border-white/30 hover:border-white/50 text-white font-bold rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all text-base sm:text-base w-full sm:w-auto shadow-lg">
+              <Phone className="h-5 w-5" /> Call +91 80733 11622
             </a>
           </div>
         </div>
@@ -892,18 +893,18 @@ export default function HomePage() {
       <SiteFooter />
 
       {/* Floating action buttons */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-4 z-50 flex flex-col gap-2.5 sm:gap-3">
+      <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-3">
         <a href="https://wa.me/918073311622" target="_blank" rel="noopener noreferrer" title="WhatsApp"
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center shadow-lg shadow-green-500/35 transition-all hover:scale-110 active:scale-95">
-          <svg className="h-5 w-5 sm:h-6 sm:w-6 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.554 4.127 1.527 5.86L.057 23.95l6.264-1.644A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.819 9.819 0 01-5.012-1.374l-.36-.214-3.72.976 1.002-3.634-.234-.373A9.82 9.82 0 012.182 12C2.182 6.579 6.579 2.182 12 2.182S21.818 6.579 21.818 12 17.421 21.818 12 21.818z"/></svg>
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center shadow-2xl shadow-green-500/40 transition-all hover:scale-110 active:scale-95 backdrop-blur-sm">
+          <svg className="h-6 w-6 sm:h-7 sm:w-7 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.554 4.127 1.527 5.86L.057 23.95l6.264-1.644A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.819 9.819 0 01-5.012-1.374l-.36-.214-3.72.976 1.002-3.634-.234-.373A9.82 9.82 0 012.182 12C2.182 6.579 6.579 2.182 12 2.182S21.818 6.579 21.818 12 17.421 21.818 12 21.818z"/></svg>
         </a>
         <a href="tel:+918073311622" title="Call"
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center shadow-lg shadow-teal-500/35 transition-all hover:scale-110 active:scale-95">
-          <Phone className="h-5 w-5 sm:h-6 sm:w-6" />
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center shadow-2xl shadow-teal-500/40 transition-all hover:scale-110 active:scale-95 backdrop-blur-sm">
+          <Phone className="h-6 w-6 sm:h-7 sm:w-7" />
         </a>
         <button onClick={() => setPatientFlowOpen(true)} title="Find Your Care"
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-900 hover:bg-teal-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/35 transition-all hover:scale-110 active:scale-95">
-          <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-900 hover:bg-teal-900 text-white flex items-center justify-center shadow-2xl shadow-slate-900/40 transition-all hover:scale-110 active:scale-95 backdrop-blur-sm">
+          <svg className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </button>
