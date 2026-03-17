@@ -13,9 +13,9 @@ export function SiteFooter() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-16 mb-12 lg:mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 lg:gap-16 mb-10 md:mb-12 lg:mb-16">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="col-span-2">
             <div className="flex items-center gap-4 mb-6">
               <div className="relative w-12 h-12 rounded-2xl bg-white/10 backdrop-blur border border-white/10 flex items-center justify-center p-2 shadow-xl">
                 <Image
@@ -102,8 +102,7 @@ export function SiteFooter() {
                   <Clock className="h-4 w-4 text-teal-400" />
                 </div>
                 <div className="space-y-1 font-medium pt-1">
-                  <div>Mon – Sat: <span className="text-slate-300">9am – 8pm</span></div>
-                  <div>Sunday: <span className="text-slate-300">10am – 2pm</span></div>
+                  <div>Everyday: <span className="text-slate-300">5pm – 9pm</span></div>
                 </div>
               </div>
             </div>
@@ -111,7 +110,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
           <p className="text-slate-500 text-xs font-semibold">
             © {new Date().getFullYear()} Star Ortho &amp; Women Care. All rights reserved.
           </p>

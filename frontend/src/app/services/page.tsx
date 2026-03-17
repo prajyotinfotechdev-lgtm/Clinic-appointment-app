@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SiteNav } from "@/components/clinic/SiteNav";
 import { SiteFooter } from "@/components/clinic/SiteFooter";
 import { BookingModal } from "@/components/clinic/BookingModal";
+import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
 
 /* ── Ultra-Premium Modern SVGs for Orthopaedic Services ── */
@@ -612,36 +613,42 @@ const orthoServices = [
     desc: "Comprehensive evaluation and treatment for arthritis, cartilage damage, and chronic joint pain using the latest evidence-based protocols.",
     tags: ["Arthritis", "Cartilage"],
     SvgComponent: JointPainSVG,
+    href: "/joint-pain-treatment-wakad",
   },
   {
     name: "Fracture Management",
     desc: "Expert surgical and non-surgical care for all types of fractures — from simple breaks to complex multi-fragment injuries — with rapid recovery focus.",
     tags: ["Surgical", "Non-surgical", "Rapid Recovery"],
     SvgComponent: FractureSVG,
+    href: "/joint-pain-treatment-wakad",
   },
   {
     name: "Sports Injury Treatment",
     desc: "Specialized care for athletes and active individuals: ACL tears, meniscus injuries, ligament sprains, and muscle strains.",
     tags: ["ACL", "Meniscus", "Ligaments"],
     SvgComponent: SportsInjurySVG,
+    href: "/sports-injury-treatment-wakad",
   },
   {
     name: "Knee Pain Treatment",
     desc: "From conservative physiotherapy to knee replacement surgery — individualized plans for every stage of knee disease.",
     tags: ["Physiotherapy", "Knee Replacement"],
     SvgComponent: KneePainSVG,
+    href: "/knee-pain-treatment-wakad",
   },
   {
     name: "Shoulder Pain Treatment",
     desc: "Rotator cuff repairs, shoulder impingement, frozen shoulder (adhesive capsulitis), and instability management.",
     tags: ["Rotator Cuff", "Frozen Shoulder", "Instability"],
     SvgComponent: ShoulderPainSVG,
+    href: "/shoulder-pain-treatment-wakad",
   },
   {
     name: "Spine Care",
     desc: "Conservative and surgical management of back pain, disc herniation, sciatica, and spinal deformities.",
     tags: ["Back Pain", "Disc", "Sciatica"],
     SvgComponent: SpineCareSVG,
+    href: "/spine-specialist-wakad",
   },
 ];
 
@@ -651,36 +658,42 @@ const womenServices = [
     desc: "Complete antenatal monitoring, high-risk pregnancy management, safe delivery planning, and postnatal care for mother and baby.",
     tags: ["Antenatal", "High-Risk", "Postnatal"],
     SvgComponent: PregnancyCareSVG,
+    href: "/pregnancy-care-wakad",
   },
   {
     name: "Gynecology Consultation",
     desc: "Comprehensive evaluations for all gynaecological conditions — from routine check-ups to complex diagnostic workups.",
     tags: ["Check-ups", "Diagnosis", "Women's Health"],
     SvgComponent: GynaeSVG,
+    href: "/gynecologist-wakad",
   },
   {
     name: "PCOS Treatment",
     desc: "Holistic, evidence-based management of Polycystic Ovary Syndrome including hormonal therapy, lifestyle intervention, and fertility support.",
     tags: ["Hormonal", "Lifestyle", "Fertility"],
     SvgComponent: PcosSVG,
+    href: "/pcos-treatment-wakad",
   },
   {
     name: "Menstrual Disorder Treatment",
     desc: "Diagnosis and treatment of irregular periods, heavy menstrual bleeding, dysmenorrhea, and endometriosis.",
     tags: ["Irregular Periods", "Heavy Bleeding"],
     SvgComponent: MenstrualSVG,
+    href: "/menstrual-disorder-treatment-wakad",
   },
   {
     name: "Laparoscopic Surgery",
     desc: "Minimally invasive keyhole surgery for ovarian cysts, fibroids, endometriosis, ectopic pregnancy, and other conditions.",
     tags: ["Minimally Invasive", "Fibroids", "Cysts"],
     SvgComponent: LaparoscopicSVG,
+    href: "/laparoscopic-surgery-wakad",
   },
   {
     name: "Contraceptive Counselling",
     desc: "Personalized guidance on contraceptive options — IUDs, hormonal methods, barrier methods — with follow-up support.",
     tags: ["IUD", "Hormonal", "Family Planning"],
     SvgComponent: ContraceptiveSVG,
+    href: "/gynecologist-wakad",
   },
 ];
 
@@ -689,40 +702,55 @@ function PremiumServiceCard({ service, color }: {
   service: any;
   color: "teal" | "rose";
 }) {
+  const isTeal = color === "teal";
   return (
-    <div className={`bg-white rounded-[2rem] overflow-hidden border shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col h-full ${
-      color === "teal" ? "border-teal-50" : "border-rose-50"
-    }`}>
+    <Link
+      href={service.href}
+      className={`bg-white rounded-[2rem] overflow-hidden border shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col h-full cursor-pointer ${
+        isTeal ? "border-teal-50 hover:border-teal-200" : "border-rose-50 hover:border-rose-200"
+      }`}
+    >
       {/* Top Image Area */}
-      <div className="w-full h-48 sm:h-56 relative bg-slate-50 overflow-hidden">
+      <div className="w-full h-40 sm:h-48 lg:h-56 relative bg-slate-50 overflow-hidden">
         <service.SvgComponent />
-        {/* Subtle inner shadow overlay */}
         <div className="absolute inset-0 shadow-[inset_0_-10px_20px_rgba(255,255,255,1)]" />
+        {/* Hover overlay */}
+        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity ${
+          isTeal ? "bg-teal-600/8" : "bg-rose-600/8"
+        }`} />
       </div>
 
       {/* Content Area */}
-      <div className="p-6 sm:p-8 flex flex-col flex-grow bg-white relative z-10">
-        <h3 className="text-xl font-extrabold text-slate-900 mb-3 leading-tight tracking-tight">
+      <div className="p-4 sm:p-6 flex flex-col flex-grow bg-white relative z-10">
+        <h3 className="text-base sm:text-xl font-extrabold text-slate-900 mb-2 sm:mb-3 leading-tight tracking-tight">
           {service.name}
         </h3>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
+        <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-5 flex-grow">
           {service.desc}
         </p>
-        
+
         {/* Pill Tags */}
-        <div className="flex flex-wrap gap-2 mt-auto pt-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-5">
           {service.tags.map((tag: string) => (
-            <span key={tag} className={`px-3.5 py-1.5 rounded-full text-[12px] font-bold ${
-              color === "teal" 
-                ? "bg-teal-50/80 text-teal-800 border border-teal-100/50" 
-                : "bg-rose-50/80 text-rose-800 border border-rose-100/50"
+            <span key={tag} className={`px-3 py-1 rounded-full text-[11px] font-bold border ${
+              isTeal
+                ? "bg-teal-50 text-teal-800 border-teal-100"
+                : "bg-rose-50 text-rose-800 border-rose-100"
             }`}>
               {tag}
             </span>
           ))}
         </div>
+
+        {/* CTA row */}
+        <div className={`flex items-center gap-2 text-sm font-bold mt-auto ${
+          isTeal ? "text-teal-600" : "text-rose-600"
+        }`}>
+          <span>Learn More</span>
+          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -737,7 +765,7 @@ export default function ServicesPage() {
       <section className="relative bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/8 rounded-full blur-[100px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-500/15 border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-semibold mb-6">
             <span className="w-2 h-2 rounded-full bg-teal-400" />
             Comprehensive Medical Services
@@ -779,7 +807,7 @@ export default function ServicesPage() {
       </div>
 
       {/* Orthopaedic Services */}
-      <section className="py-16 lg:py-28 bg-[#f8fafc]">
+      <section className="py-10 sm:py-16 lg:py-28 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 lg:mb-14">
             <div>
@@ -804,7 +832,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Women's Health Services */}
-      <section className="py-16 lg:py-28 bg-white">
+      <section className="py-10 sm:py-16 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 lg:mb-14">
             <div>

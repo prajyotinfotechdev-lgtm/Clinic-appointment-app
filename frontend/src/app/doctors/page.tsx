@@ -93,7 +93,7 @@ export default function DoctorsPage() {
             <Star className="h-3.5 w-3.5 fill-teal-300 text-teal-300" />
             Board-Certified Specialists
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4 sm:mb-5">
             Meet Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-400">
               Expert Doctors
@@ -106,23 +106,28 @@ export default function DoctorsPage() {
       </section>
 
       {/* Doctor Cards */}
-      <section className="py-16 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 lg:space-y-16">
+      <section className="py-10 sm:py-16 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12 lg:space-y-16">
           {doctors.map((doc, idx) => (
             <div key={doc.name} className={`grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-start ${idx % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
               {/* Profile card */}
               <div className={`rounded-3xl overflow-hidden border shadow-sm ${doc.color === "teal" ? "border-teal-100" : "border-rose-100"}`}>
                 <div className={`h-2 ${doc.color === "teal" ? "bg-gradient-to-r from-teal-500 to-teal-600" : "bg-gradient-to-r from-rose-400 to-pink-500"}`} />
-                <div className="p-6 sm:p-8 text-center">
-                  <div className="w-24 h-24 mx-auto mb-5">
-                    <DoctorSVG color={doc.color} />
+                <div className="p-5 sm:p-8">
+                  {/* Header: side-by-side on mobile, centered column on sm+ */}
+                  <div className="flex items-center gap-4 sm:flex-col sm:items-center sm:text-center mb-4 sm:mb-5">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 shrink-0">
+                      <DoctorSVG color={doc.color} />
+                    </div>
+                    <div>
+                      <h2 className="font-extrabold text-slate-900 text-lg sm:text-xl">{doc.name}</h2>
+                      <p className={`text-sm font-bold mt-0.5 ${doc.color === "teal" ? "text-teal-600" : "text-rose-500"}`}>
+                        {doc.qualifications}
+                      </p>
+                      <p className="text-slate-400 text-xs mt-0.5 font-medium leading-snug">{doc.title}</p>
+                    </div>
                   </div>
-                  <h2 className="font-extrabold text-slate-900 text-xl">{doc.name}</h2>
-                  <p className={`text-sm font-bold mt-1 ${doc.color === "teal" ? "text-teal-600" : "text-rose-500"}`}>
-                    {doc.qualifications}
-                  </p>
-                  <p className="text-slate-400 text-xs mt-1 font-medium leading-snug">{doc.title}</p>
-                  <div className="flex justify-center gap-4 mt-5 pt-5 border-t border-slate-100">
+                  <div className="flex sm:justify-center gap-4 mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-slate-100">
                     <div className="text-center">
                       <div className={`text-lg font-extrabold ${doc.color === "teal" ? "text-teal-700" : "text-rose-600"}`}>{doc.experience}</div>
                       <div className="text-xs text-slate-400 font-medium">Experience</div>
@@ -139,7 +144,7 @@ export default function DoctorsPage() {
                   </div>
                   <button
                     onClick={() => setBookingOpen(true)}
-                    className={`flex items-center justify-center gap-2 w-full mt-5 py-3 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] ${
+                    className={`flex items-center justify-center gap-2 w-full mt-4 sm:mt-5 py-3 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] ${
                       doc.color === "teal"
                         ? "bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-500/20"
                         : "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white shadow-lg shadow-rose-400/20"

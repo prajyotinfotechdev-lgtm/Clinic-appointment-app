@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, MapPin, Clock, ChevronRight, CheckCircle, Shield, Award, Heart, Star, Video, Users, TrendingUp, AlertCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, Phone, MapPin, Clock, ChevronRight, ChevronLeft, CheckCircle, Shield, Award, Heart, Star, Video, Users, TrendingUp, AlertCircle, ChevronDown, Activity, Stethoscope, Baby } from "lucide-react";
 import { SiteNav } from "@/components/clinic/SiteNav";
 import { SiteFooter } from "@/components/clinic/SiteFooter";
 import { BookingModal } from "@/components/clinic/BookingModal";
@@ -12,8 +12,8 @@ import { PatientFlowModal } from "@/components/clinic/PatientFlowModal";
 /* ─── Dataa ─── */
 const stats = [
   { value: "2+", label: "Specialist Doctors", sub: "Board certified" },
-  { value: "10+", label: "Years Experience", sub: "Combined" },
-  { value: "5000+", label: "Patients Treated", sub: "And counting" },
+  { value: "10+", label: "Years Experience", sub: "In Women's Health" },
+  { value: "1000+", label: "Happy Patients", sub: "Treated successfully" },
   { value: "98%", label: "Satisfaction Rate", sub: "Patient reviews" },
 ];
 
@@ -26,27 +26,30 @@ const features = [
 
 const doctors = [
   {
+    initial: "AK",
+    name: "Dr. Aparna Kalekar",
+    qualifications: "MBBS, MS - Obstetrics & Gynaecology",
+    title: "Consultant Obstetrician & Gynaecologist | Laparoscopic Surgeon | IVF Specialist",
+    fellowship: "Fellowship in Advanced Gynaec Endoscopy",
+    experience: "10+ Years Experience",
+    color: "rose" as const,
+    specs: ["High-Risk Pregnancy Care", "Infertility Treatment", "PCOD/PCOS Treatment", "Menstrual Disorders"],
+    description: "Dr. Aparna Kalekar is a dedicated and compassionate Obstetrician and Gynaecologist at Kalekar's Star Ortho & Women Care Clinic in Wakad, Pune. She provides comprehensive and personalized care for women across all stages of life. Her expertise includes pregnancy care, menstrual health, infertility evaluation, and overall women's wellness.",
+  },
+  {
     initial: "RK",
     name: "Dr. Rahul Kalekar",
     qualifications: "MBBS, DNB, D.ORTHO, FIJR",
     title: "Consultant Orthopaedic Surgeon",
     color: "teal" as const,
-    specs: ["Joint pain treatment", "Fracture management", "Sports injury care", "Orthopaedic consultation"],
-  },
-  {
-    initial: "AK",
-    name: "Dr. Aparna Kalekar",
-    qualifications: "MBBS, MS OBGY",
-    title: "Laparoscopic Surgeon & Gynaecologist",
-    color: "rose" as const,
-    specs: ["Pregnancy care", "Gynecology consultation", "PCOS treatment", "Women's health care"],
+    specs: ["Knee Pain Treatment", "Joint Preservation", "Spine Care", "Arthritis Treatment"],
   },
 ];
 
 const marqueeItems = [
-  "Joint Pain Treatment", "Fracture Management", "Sports Injury",
-  "Pregnancy Care", "PCOS Treatment", "Gynecology Consultation",
-  "Knee Pain", "Shoulder Pain", "Laparoscopic Surgery", "Women's Health",
+  "Gynecologist in Wakad", "Best Gynecologist Wakad Pune", "PCOD Treatment Wakad",
+  "Pregnancy Doctor Wakad", "Infertility Doctor Wakad", "High-Risk Pregnancy Care",
+  "Knee Pain Treatment", "Joint Preservation", "Women's Health Clinic Wakad",
 ];
 
 const testimonials = [
@@ -91,7 +94,7 @@ const faqs = [
   },
   {
     question: "What are your clinic hours?",
-    answer: "We're open Monday to Friday from 5:00 PM to 9:00 PM. We also offer emergency consultations - please call ahead."
+    answer: "We're open everyday from 5:00 PM to 9:00 PM. We also offer emergency consultations - please call ahead."
   },
   {
     question: "Do you offer video consultations?",
@@ -235,6 +238,8 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSymptom, setSelectedSymptom] = useState<string>("");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 2;
 
   const handlePatientFlowComplete = (category: any, symptom: string) => {
     setSelectedCategory(category);
@@ -246,6 +251,20 @@ export default function HomePage() {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  // Auto-slide every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 7000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {/* Structured Data for SEO */}
@@ -256,9 +275,9 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "MedicalClinic",
             "@id": "https://drkalekarstarclinic.com",
-            "name": "Dr. Kalekar Star Clinic",
+            "name": "Kalekar's Star Ortho & Women Care Clinic",
             "alternateName": "Kalekar Star Clinic Wakad",
-            "description": "Leading orthopedic and gynecology clinic in Wakad, Pune offering expert healthcare services by board-certified specialists Dr. Rahul Kalekar and Dr. Aparna Kalekar.",
+            "description": "Best Gynecologist in Wakad, Pune offering comprehensive women's healthcare, pregnancy care, PCOD treatment, infertility consultation, and orthopaedic services. Expert care by Dr. Aparna Kalekar and Dr. Rahul Kalekar.",
             "url": "https://drkalekarstarclinic.com",
             "logo": "https://drkalekarstarclinic.com/logo.png",
             "image": "https://drkalekarstarclinic.com/logo.png",
@@ -280,7 +299,7 @@ export default function HomePage() {
             "openingHoursSpecification": [
               {
                 "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
                 "opens": "17:00",
                 "closes": "21:00"
               }
@@ -290,30 +309,16 @@ export default function HomePage() {
             "paymentAccepted": "Cash, Credit Card, Debit Card, UPI, Insurance",
             "medicalSpecialty": ["Orthopedic", "Gynecology", "Obstetrics"],
             "availableService": [
-              {
-                "@type": "MedicalProcedure",
-                "name": "Joint Pain Treatment"
-              },
-              {
-                "@type": "MedicalProcedure",
-                "name": "Fracture Management"
-              },
-              {
-                "@type": "MedicalProcedure",
-                "name": "Sports Injury Treatment"
-              },
-              {
-                "@type": "MedicalProcedure",
-                "name": "PCOS Treatment"
-              },
-              {
-                "@type": "MedicalProcedure",
-                "name": "Pregnancy Care"
-              },
-              {
-                "@type": "MedicalProcedure",
-                "name": "Laparoscopic Surgery"
-              }
+              { "@type": "MedicalProcedure", "name": "Joint Pain Treatment in Wakad", "url": "https://drkalekarstarclinic.com/joint-pain-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Knee Pain Treatment in Wakad", "url": "https://drkalekarstarclinic.com/knee-pain-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Spine Specialist in Wakad", "url": "https://drkalekarstarclinic.com/spine-specialist-wakad" },
+              { "@type": "MedicalProcedure", "name": "Sports Injury Treatment in Wakad", "url": "https://drkalekarstarclinic.com/sports-injury-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Shoulder Pain Treatment in Wakad", "url": "https://drkalekarstarclinic.com/shoulder-pain-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Gynecologist Consultation in Wakad", "url": "https://drkalekarstarclinic.com/gynecologist-wakad" },
+              { "@type": "MedicalProcedure", "name": "PCOS Treatment in Wakad", "url": "https://drkalekarstarclinic.com/pcos-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Pregnancy Care in Wakad", "url": "https://drkalekarstarclinic.com/pregnancy-care-wakad" },
+              { "@type": "MedicalProcedure", "name": "Menstrual Disorder Treatment in Wakad", "url": "https://drkalekarstarclinic.com/menstrual-disorder-treatment-wakad" },
+              { "@type": "MedicalProcedure", "name": "Laparoscopic Surgery in Wakad", "url": "https://drkalekarstarclinic.com/laparoscopic-surgery-wakad" }
             ],
             "hasMap": "https://maps.app.goo.gl/EuFotrL9pr4GEsu28",
             "aggregateRating": {
@@ -406,8 +411,8 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "url": "https://drkalekarstarclinic.com",
-            "name": "Dr. Kalekar Star Clinic",
-            "description": "Best Orthopedic and Gynecology Clinic in Wakad, Pune",
+            "name": "Kalekar's Star Ortho & Women Care Clinic",
+            "description": "Best Gynecologist in Wakad, Pune - Comprehensive Women's Healthcare & Orthopaedic Services",
             "potentialAction": {
               "@type": "SearchAction",
               "target": "https://drkalekarstarclinic.com/search?q={search_term_string}",
@@ -420,73 +425,134 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-slate-800 antialiased">
       <SiteNav />
 
-      {/* ══════════════ HERO ══════════════ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white min-h-[100vh] sm:min-h-[92vh] flex items-center">
-        {/* Grid overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
-        {/* Glow blobs */}
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-teal-500/8 rounded-full blur-[120px] pointer-events-none max-w-full" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-600/6 rounded-full blur-[100px] pointer-events-none max-w-full" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-0 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[auto] lg:min-h-[92vh] pt-24 pb-12 sm:pt-28 sm:pb-16 lg:py-20">
-            {/* Left – Content */}
-            <div className="flex flex-col items-start text-left max-w-xl mx-auto lg:mx-0 relative z-10">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-teal-500/15 backdrop-blur-sm border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-bold mb-6 sm:mb-7 shadow-lg shadow-teal-500/10">
-                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-lg shadow-teal-400/50" />
-                Wakad&apos;s Leading Specialist Clinic
-              </div>
-
-              <h1 className="text-[2.5rem] sm:text-5xl lg:text-[68px] font-extrabold tracking-tight leading-[1.1] sm:leading-[1.02] mb-6 sm:mb-7">
-                Dr. Kalekar<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-teal-400 to-emerald-400 drop-shadow-[0_0_30px_rgba(45,212,191,0.3)]">
-                  Star Clinic
-                </span>
-              </h1>
-
-              <p className="text-[15px] sm:text-lg text-slate-300/90 leading-[1.7] mb-8 sm:mb-9 max-w-md font-medium">
-                Expert <strong className="text-white font-bold">orthopedic surgeon</strong> Dr. Rahul Kalekar & <strong className="text-white font-bold">gynecologist</strong> Dr. Aparna Kalekar. Specialized treatment for joint pain, PCOS, pregnancy care, fractures & women&apos;s health.
-              </p>
-
-              <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2.5 sm:gap-3.5 mb-8 sm:mb-10 w-full sm:w-auto">
-                <button
-                  onClick={() => setPatientFlowOpen(true)}
-                  className="group flex items-center justify-center gap-1.5 sm:gap-2.5 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold rounded-lg sm:rounded-xl shadow-xl sm:shadow-2xl shadow-teal-500/30 transition-all hover:scale-[1.03] active:scale-[0.98] text-xs sm:text-[15px] w-full sm:w-auto"
-                >
-                  <span className="hidden sm:inline">Find Your Care</span>
-                  <span className="sm:hidden">Find Care</span>
-                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <Link href="/login"
-                  className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 py-3 sm:px-6 sm:py-3 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-white/25 text-white/90 hover:text-white font-semibold rounded-lg transition-all text-xs sm:text-sm w-full sm:w-auto">
-                  <span className="hidden sm:inline">Patient Portal</span>
-                  <span className="sm:hidden">Portal</span>
-                </Link>
-                <a href="tel:+918073311622"
-                  className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 py-3 sm:px-6 sm:py-3 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/15 hover:border-white/25 text-white/90 hover:text-white font-semibold rounded-lg transition-all text-xs sm:text-sm w-full sm:w-auto">
-                  <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  <span className="hidden sm:inline">Call Now</span>
-                  <span className="sm:hidden">Call</span>
-                </a>
-              </div>
-
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-x-5 gap-y-2.5 pt-2">
-                {["Board Certified Specialists", "5000+ Happy Patients", "Wakad, Pune"].map((b) => (
-                  <div key={b} className="flex items-center gap-2 text-sm text-teal-200/80 font-semibold">
-                    <CheckCircle className="h-4 w-4 text-teal-400" /> {b}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right – SVG illustration */}
-            <div className="flex items-center justify-center relative mt-10 lg:mt-0 mb-0 lg:mb-0">
-              <div className="w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] lg:w-[460px] lg:h-[460px] relative animate-float">
-                <HeroIllustration />
+      {/* ══════════════ HERO CAROUSEL ══════════════ */}
+      <section className="relative overflow-hidden min-h-[100vh] sm:min-h-[85vh]">
+        {/* Slide 1 - Orthopaedic Care */}
+        <div className={`absolute inset-0 transition-opacity duration-1000 ${currentSlide === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className="absolute inset-0">
+            <img
+              src="/assets/img1.png"
+              alt="Orthopaedic Care"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/40" />
+          </div>
+          
+          <div className="relative h-full flex items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 w-full">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/90 backdrop-blur-sm border border-blue-200 rounded-full mb-4 sm:mb-6">
+                  <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-600" />
+                  <span className="text-xs sm:text-sm font-bold text-blue-600">Orthopaedic Department</span>
+                </div>
+                
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+                  Orthopaedic Care
+                </h1>
+                
+                <div className="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-8 text-sm text-white/90 font-semibold">
+                  <span>Knee Pain</span>
+                  <span className="text-white/40">•</span>
+                  <span>Spine Care</span>
+                  <span className="text-white/40">•</span>
+                  <span>Arthritis</span>
+                  <span className="text-white/40">•</span>
+                  <span>Sports Injuries</span>
+                  <span className="text-white/40">•</span>
+                  <span>Joint Treatment</span>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <button
+                    onClick={() => setPatientFlowOpen(true)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 text-sm"
+                  >
+                    Find Your Care
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                  <Link href="/login"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm">
+                    Patient Portal
+                  </Link>
+                  <a href="tel:+918073311622"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm">
+                    <Phone className="h-4 w-4" />
+                    Call Now
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Slide 2 - Women's Health Care */}
+        <div className={`absolute inset-0 transition-opacity duration-1000 ${currentSlide === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className="absolute inset-0">
+            <img
+              src="/assets/img2.png"
+              alt="Women's Health Care"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/40" />
+          </div>
+          
+          <div className="relative h-full flex items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 w-full">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/90 backdrop-blur-sm border border-rose-200 rounded-full mb-4 sm:mb-6">
+                  <Baby className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-rose-600" />
+                  <span className="text-xs sm:text-sm font-bold text-rose-600">Women's Health Department</span>
+                </div>
+                
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+                  Women's Health &amp; Pregnancy Care
+                </h1>
+                
+                <div className="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-8 text-sm text-white/90 font-semibold">
+                  <span>PCOD Treatment</span>
+                  <span className="text-white/40">•</span>
+                  <span>Infertility Consultation</span>
+                  <span className="text-white/40">•</span>
+                  <span>Pregnancy Care</span>
+                  <span className="text-white/40">•</span>
+                  <span>Menstrual Health</span>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <button
+                    onClick={() => setPatientFlowOpen(true)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 text-sm"
+                  >
+                    Find Your Care
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                  <Link href="/login"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm">
+                    Patient Portal
+                  </Link>
+                  <a href="tel:+918073311622"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm">
+                    <Phone className="h-4 w-4" />
+                    Call Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {[0, 1].map((index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                currentSlide === index ? 'bg-slate-700 w-8' : 'bg-slate-300'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -521,42 +587,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ══════════════ STATS ══════════════ */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center group py-3 sm:py-4">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-br from-teal-700 to-teal-600 bg-clip-text text-transparent tracking-tight mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {s.value}
-                </div>
-                <div className="text-xs sm:text-sm lg:text-base font-bold text-slate-800 leading-tight">{s.label}</div>
-                <div className="text-[10px] sm:text-xs lg:text-sm text-slate-400 font-medium mt-1">{s.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════ TRUST BADGES ══════════════ */}
-      <section className="py-10 sm:py-12 lg:py-14 bg-gradient-to-br from-teal-50 via-white to-teal-50/30 border-b border-teal-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
-            {trustBadges.map((badge) => (
-              <div key={badge.title} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md border border-teal-100/50 hover:border-teal-200 transition-all hover:-translate-y-1">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-teal-100 to-teal-50 flex items-center justify-center shrink-0 shadow-inner">
-                  <badge.icon className="h-5 w-5 sm:h-6 sm:w-6 text-teal-600" />
-                </div>
-                <div className="text-center sm:text-left">
-                  <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight">{badge.title}</div>
-                  <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">{badge.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ══════════════ WHY CHOOSE US ══════════════ */}
       <section className="py-16 sm:py-20 lg:py-32 relative bg-[#f8fafc] overflow-hidden">
         {/* Soft background ambient glow */}
@@ -575,18 +605,18 @@ export default function HomePage() {
               Combining clinical expertise with modern facilities for the best possible patient outcomes.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-7">
             {features.map((f) => (
               <div key={f.title}
-                className="relative bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 border border-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 group z-10 overflow-hidden">
+                className="relative bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-7 lg:p-8 border border-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 group z-10 overflow-hidden">
                 {/* Glass reflection */}
                 <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 to-transparent opacity-50" />
                 
-                <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100/50 flex items-center justify-center mb-5 sm:mb-6 border border-teal-100/50 group-hover:scale-110 transition-transform duration-300 shadow-inner">
-                  <f.icon className="h-6 w-6 sm:h-7 sm:w-7 text-teal-600 drop-shadow-sm" />
+                <div className="relative w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100/50 flex items-center justify-center mb-3 sm:mb-6 border border-teal-100/50 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <f.icon className="h-5 w-5 sm:h-7 sm:w-7 text-teal-600 drop-shadow-sm" />
                 </div>
-                <h3 className="relative font-extrabold text-slate-900 text-base sm:text-lg mb-2.5 sm:mb-3 tracking-tight leading-tight">{f.title}</h3>
-                <p className="relative text-slate-500 text-sm sm:text-[15px] leading-relaxed">{f.desc}</p>
+                <h3 className="relative font-extrabold text-slate-900 text-sm sm:text-lg mb-1.5 sm:mb-3 tracking-tight leading-tight">{f.title}</h3>
+                <p className="relative text-slate-500 text-xs sm:text-[15px] leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -638,14 +668,14 @@ export default function HomePage() {
                   ))}
                 </div>
                 <button
-                  onClick={() => setPatientFlowOpen(true)}
+                  onClick={() => setBookingOpen(true)}
                   className={`flex items-center justify-center gap-2 w-full py-3.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base transition-all hover:scale-[1.02] shadow-lg ${
                     doc.color === "teal"
                       ? "bg-teal-600 hover:bg-teal-500 text-white"
                       : "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-400 hover:to-pink-400 text-white"
                   }`}
                 >
-                  Find Your Care <ArrowRight className="h-3.5 w-3.5" />
+                  Book Appointment <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
             ))}
@@ -669,41 +699,79 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
-            {/* Orthopaedic */}
-            <div className="bg-gradient-to-br from-teal-50 to-white rounded-2xl sm:rounded-3xl border border-teal-100 p-6 sm:p-7 lg:p-9 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-              <OrthoSVG />
-              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 text-center mt-4 sm:mt-5 mb-1.5">Orthopaedic Care</h3>
-              <p className="text-teal-600 text-sm sm:text-base font-bold text-center mb-6 sm:mb-7">Dr. Rahul Kalekar</p>
-              <div className="space-y-2.5 sm:space-y-3">
-                {["Joint Pain Treatment", "Fracture Management", "Sports Injury Treatment", "Knee & Shoulder Pain"].map((s) => (
-                  <div key={s} className="flex items-center gap-3 p-3 sm:p-3.5 bg-white/80 rounded-xl hover:bg-teal-50 hover:shadow-sm transition-all">
-                    <CheckCircle className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-teal-500 shrink-0" />
-                    <span className="text-sm sm:text-base font-semibold text-slate-700">{s}</span>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Orthopaedic Services */}
+            <div className="bg-gradient-to-br from-teal-50 to-white rounded-2xl border border-teal-100 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0">
+                  <Activity className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-slate-900">Orthopaedic Care</h3>
+                  <p className="text-teal-600 text-sm font-bold">Dr. Rahul Kalekar — MBBS, DNB, D.ORTHO, FIJR</p>
+                </div>
+              </div>
+              <p className="text-slate-500 text-sm mb-5 leading-relaxed">
+                Expert orthopedic care in Wakad, Pune for joint pain, sports injuries, spine problems, and musculoskeletal conditions.
+              </p>
+              <div className="space-y-2">
+                {[
+                  { label: "Joint Pain Treatment in Wakad", href: "/joint-pain-treatment-wakad" },
+                  { label: "Knee Pain Treatment in Wakad", href: "/knee-pain-treatment-wakad" },
+                  { label: "Spine Specialist in Wakad", href: "/spine-specialist-wakad" },
+                  { label: "Sports Injury Treatment in Wakad", href: "/sports-injury-treatment-wakad" },
+                  { label: "Shoulder Pain Treatment in Wakad", href: "/shoulder-pain-treatment-wakad" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center justify-between gap-3 p-3 bg-white rounded-xl border border-teal-100 hover:border-teal-300 hover:bg-teal-50 transition-all group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-teal-500 shrink-0" />
+                      <span className="text-sm font-semibold text-slate-700 group-hover:text-teal-700">{item.label}</span>
+                    </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-teal-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                  </Link>
                 ))}
               </div>
-              <Link href="/services" className="flex items-center justify-center gap-2 mt-6 sm:mt-7 text-teal-600 text-sm sm:text-base font-bold hover:gap-3 transition-all">
-                View All Services <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
 
-            {/* Women's Health */}
-            <div className="bg-gradient-to-br from-rose-50 to-white rounded-2xl sm:rounded-3xl border border-rose-100 p-6 sm:p-7 lg:p-9 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
-              <WomenSVG />
-              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 text-center mt-4 sm:mt-5 mb-1.5">Women&apos;s Health</h3>
-              <p className="text-rose-500 text-sm sm:text-base font-bold text-center mb-6 sm:mb-7">Dr. Aparna Kalekar</p>
-              <div className="space-y-2.5 sm:space-y-3">
-                {["Pregnancy Care", "Gynecology Consultation", "PCOS Treatment", "Laparoscopic Surgery"].map((s) => (
-                  <div key={s} className="flex items-center gap-3 p-3 sm:p-3.5 bg-white/80 rounded-xl hover:bg-rose-50 hover:shadow-sm transition-all">
-                    <CheckCircle className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-rose-400 shrink-0" />
-                    <span className="text-sm sm:text-base font-semibold text-slate-700">{s}</span>
-                  </div>
+            {/* Women's Health Services */}
+            <div className="bg-gradient-to-br from-rose-50 to-white rounded-2xl border border-rose-100 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center shrink-0">
+                  <Baby className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-slate-900">Women&apos;s Health</h3>
+                  <p className="text-rose-600 text-sm font-bold">Dr. Aparna Kalekar — MBBS, MS OBGY</p>
+                </div>
+              </div>
+              <p className="text-slate-500 text-sm mb-5 leading-relaxed">
+                Best gynecologist in Wakad, Pune — expert in pregnancy care, PCOS treatment, laparoscopic surgery, and women&apos;s health.
+              </p>
+              <div className="space-y-2">
+                {[
+                  { label: "Gynecologist in Wakad Pune", href: "/gynecologist-wakad" },
+                  { label: "PCOS / PCOD Treatment in Wakad", href: "/pcos-treatment-wakad" },
+                  { label: "Pregnancy Care in Wakad", href: "/pregnancy-care-wakad" },
+                  { label: "Menstrual Disorder Treatment", href: "/menstrual-disorder-treatment-wakad" },
+                  { label: "Laparoscopic Surgery in Wakad", href: "/laparoscopic-surgery-wakad" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center justify-between gap-3 p-3 bg-white rounded-xl border border-rose-100 hover:border-rose-300 hover:bg-rose-50 transition-all group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-rose-400 shrink-0" />
+                      <span className="text-sm font-semibold text-slate-700 group-hover:text-rose-700">{item.label}</span>
+                    </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-rose-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                  </Link>
                 ))}
               </div>
-              <Link href="/services" className="flex items-center justify-center gap-2 mt-6 sm:mt-7 text-rose-500 text-sm sm:text-base font-bold hover:gap-3 transition-all">
-                View All Services <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
           </div>
         </div>
@@ -857,9 +925,9 @@ export default function HomePage() {
             </div>
             <div className="lg:col-span-2 space-y-3 sm:space-y-4">
               {[
-                { icon: MapPin, title: "Address", body: "Sanskruti Arcade, Ground Floor, Shop 6, Wakad, Pune, Maharashtra", extra: null },
+                { icon: MapPin, title: "Address", body: "Sanskruti Arcade, Ground Floor, Shop 6, Wakad, Pune - 411057", extra: null },
                 { icon: Phone, title: "Phone", body: "+91 80733 11622", extra: "call" },
-                { icon: Clock, title: "Clinic Hours", body: "Monday – Friday: 5:00 PM – 9:00 PM", extra: null },
+                { icon: Clock, title: "Clinic Hours", body: "Everyday: 5:00 PM – 9:00 PM", extra: null },
               ].map((item) => (
                 <div key={item.title} className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm">
                   <div className="flex gap-3 sm:gap-4">

@@ -7,7 +7,7 @@ import { BookingModal } from "@/components/clinic/BookingModal";
 import { Phone, MapPin, Clock, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
 
 const hours = [
-  { day: "Monday – Friday", time: "5:00 PM – 9:00 PM" },
+  { day: "Everyday", time: "5:00 PM – 9:00 PM" },
 ];
 
 export default function ContactPage() {
@@ -21,12 +21,12 @@ export default function ContactPage() {
       <section className="relative bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/8 rounded-full blur-[100px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-500/15 border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-semibold mb-6">
             <span className="w-2 h-2 rounded-full bg-teal-400" />
             We&apos;re Here to Help
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4 sm:mb-5">
             Get in{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-400">
               Touch
@@ -39,39 +39,39 @@ export default function ContactPage() {
       </section>
 
       {/* Quick action bar */}
-      <div className="bg-white border-b border-slate-100 py-6 sm:py-5">
+      <div className="bg-white border-b border-slate-100 py-4 sm:py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4">
             <a href="tel:+918073311622"
-              className="flex items-center gap-4 p-4 bg-teal-50 hover:bg-teal-100 border border-teal-100 rounded-2xl transition-all group">
-              <div className="w-12 h-12 sm:w-10 sm:h-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-md shadow-teal-500/20">
-                <Phone className="h-6 w-6 sm:h-5 sm:w-5 text-white" />
+              className="flex flex-col sm:flex-row items-center sm:gap-4 gap-2 p-3 sm:p-4 bg-teal-50 hover:bg-teal-100 border border-teal-100 rounded-2xl transition-all group">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-md shadow-teal-500/20">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
-              <div>
-                <div className="text-xs font-bold text-teal-600 uppercase tracking-wide">Call Us</div>
-                <div className="font-bold text-slate-900 text-sm">+91 80733 11622</div>
+              <div className="text-center sm:text-left">
+                <div className="text-[10px] sm:text-xs font-bold text-teal-600 uppercase tracking-wide">Call Us</div>
+                <div className="font-bold text-slate-900 text-xs sm:text-sm hidden sm:block">+91 80733 11622</div>
               </div>
             </a>
             <a href="https://wa.me/918073311622" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 bg-green-50 hover:bg-green-100 border border-green-100 rounded-2xl transition-all group">
-              <div className="w-12 h-12 sm:w-10 sm:h-10 rounded-xl bg-green-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-md shadow-green-400/20">
-                <MessageCircle className="h-6 w-6 sm:h-5 sm:w-5 text-white" />
+              className="flex flex-col sm:flex-row items-center sm:gap-4 gap-2 p-3 sm:p-4 bg-green-50 hover:bg-green-100 border border-green-100 rounded-2xl transition-all group">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-green-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-md shadow-green-400/20">
+                <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
-              <div>
-                <div className="text-xs font-bold text-green-600 uppercase tracking-wide">WhatsApp</div>
-                <div className="font-bold text-slate-900 text-sm">Message Us Now</div>
+              <div className="text-center sm:text-left">
+                <div className="text-[10px] sm:text-xs font-bold text-green-600 uppercase tracking-wide">WhatsApp</div>
+                <div className="font-bold text-slate-900 text-xs sm:text-sm hidden sm:block">Message Us Now</div>
               </div>
             </a>
             <button onClick={() => setBookingOpen(true)}
-              className="flex items-center gap-4 p-4 bg-slate-900 hover:bg-teal-900 border border-slate-800 rounded-2xl transition-all group text-left">
-              <div className="w-12 h-12 sm:w-10 sm:h-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                <svg className="h-6 w-6 sm:h-5 sm:w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              className="flex flex-col sm:flex-row items-center sm:gap-4 gap-2 p-3 sm:p-4 bg-slate-900 hover:bg-teal-900 border border-slate-800 rounded-2xl transition-all group text-center sm:text-left w-full">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg className="h-4 w-4 sm:h-5 sm:w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <div className="text-xs font-bold text-teal-400 uppercase tracking-wide">Appointments</div>
-                <div className="font-bold text-white text-sm">Book a Slot</div>
+                <div className="text-[10px] sm:text-xs font-bold text-teal-400 uppercase tracking-wide">Appointments</div>
+                <div className="font-bold text-white text-xs sm:text-sm hidden sm:block">Book a Slot</div>
               </div>
             </button>
           </div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
       </div>
 
       {/* Main content */}
-      <section className="py-16 lg:py-28 bg-slate-50">
+      <section className="py-10 sm:py-16 lg:py-28 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
 

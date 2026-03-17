@@ -78,17 +78,17 @@ export default function AboutPage() {
       <section className="relative bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.018)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/8 rounded-full blur-[100px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-500/15 border border-teal-400/25 rounded-full text-teal-200 text-xs sm:text-sm font-semibold mb-6">
                 <span className="w-2 h-2 rounded-full bg-teal-400" />
                 About Us
               </span>
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-4 sm:mb-6">
                 Dedicated to Your<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-teal-400">
-                  Health & Wellbeing
+                  Health &amp; Wellbeing
                 </span>
               </h1>
               <p className="text-slate-300/75 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
@@ -104,8 +104,8 @@ export default function AboutPage() {
                 </button>
               </div>
             </div>
-            <div className="flex justify-center lg:block mt-10 lg:mt-0">
-              <div className="w-[280px] h-[240px] sm:w-[320px] sm:h-[280px] lg:w-full lg:h-full">
+            <div className="flex justify-center lg:block mt-6 lg:mt-0">
+              <div className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-none h-[200px] sm:h-[260px] lg:h-full">
                 <ClinicIllustration />
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="py-16 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
@@ -164,7 +164,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-16 lg:py-28 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-14">
             <span className="text-xs font-bold text-teal-600 uppercase tracking-[0.15em]">Our Values</span>
@@ -188,7 +188,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-16 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-28 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 lg:mb-14">
             <span className="text-xs font-bold text-teal-600 uppercase tracking-[0.15em]">Our Journey</span>
@@ -196,11 +196,11 @@ export default function AboutPage() {
               A Decade of Care
             </h2>
           </div>
-          <div className="relative pl-2 sm:pl-0">
-            <div className="absolute left-8 sm:left-6 top-0 bottom-0 w-px bg-teal-100" />
+          <div className="relative pl-0">
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-teal-100" />
             <div className="space-y-8">
               {milestones.map((m, i) => (
-                <div key={m.year} className="relative flex gap-6 sm:gap-8">
+                <div key={m.year} className="relative flex gap-4 sm:gap-8">
                   <div className="relative flex-shrink-0">
                     <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-xs font-extrabold z-10 relative ${
                       i === milestones.length - 1
@@ -210,7 +210,7 @@ export default function AboutPage() {
                       {m.year.slice(2)}
                     </div>
                   </div>
-                  <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 flex-1 hover:border-teal-100 transition-colors">
+                  <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-100 flex-1 hover:border-teal-100 transition-colors">
                     <div className="text-xs font-bold text-teal-600 uppercase tracking-wide mb-1">{m.year}</div>
                     <h3 className="font-bold text-slate-900 mb-1">{m.title}</h3>
                     <p className="text-slate-500 text-sm">{m.desc}</p>
