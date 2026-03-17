@@ -18,7 +18,8 @@ export default function PregnancyCarePage() {
     <ServicePageLayout
       heroBadge="Women's Health"
       heroTitle="Pregnancy Care in Wakad, Pune"
-      heroSubtitle="Complete antenatal and postnatal care for a safe, healthy pregnancy journey by Dr. Aparna Kalekar (MBBS, MS OBGY) at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroSubtitle="Complete antenatal care, high-risk pregnancy management, and safe delivery planning by Dr. Aparna Kalekar at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroImage="https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?w=1920&q=80"
       intro="Pregnancy is one of the most important journeys of a woman's life, and expert medical support throughout this period ensures the health and safety of both mother and baby. Dr. Aparna Kalekar, an experienced Consultant Obstetrician and Gynaecologist at our women's care clinic in Wakad, provides personalised, evidence-based pregnancy care — from conception through delivery and beyond. Whether it is a routine first pregnancy or a high-risk case requiring close monitoring, our team in Wakad is with you every step of the way."
       sections={[
         {

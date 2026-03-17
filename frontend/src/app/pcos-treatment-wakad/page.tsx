@@ -17,8 +17,9 @@ export default function PCOSPage() {
   return (
     <ServicePageLayout
       heroBadge="Women's Health"
-      heroTitle="PCOS / PCOD Treatment in Wakad, Pune"
-      heroSubtitle="Specialised diagnosis and management of Polycystic Ovary Syndrome (PCOS) by Dr. Aparna Kalekar at Kalekar's Star Ortho & Women Care Clinic — helping women in Wakad achieve hormonal balance and better health."
+      heroTitle="PCOS Treatment in Wakad, Pune"
+      heroSubtitle="Holistic PCOS/PCOD treatment by Dr. Aparna Kalekar — hormonal therapy, lifestyle intervention, and fertility support at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroImage="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80"
       intro="Polycystic Ovary Syndrome (PCOS), also known as PCOD (Polycystic Ovarian Disease), is one of the most common hormonal disorders affecting women of reproductive age in Wakad and across India. It affects nearly 1 in 5 women and can cause irregular periods, hormonal imbalances, unwanted hair growth, weight gain, acne, and fertility challenges. With the right treatment from a specialist gynaecologist in Wakad, PCOS can be effectively managed to restore hormonal balance, regular cycles, and overall well-being."
       sections={[
         {

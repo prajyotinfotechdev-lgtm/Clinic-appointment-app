@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Phone, MapPin, Clock, CheckCircle, ArrowRight, ChevronRight,
   Shield, Award, Star, Users, Activity, Heart, Stethoscope, CalendarCheck,
@@ -25,6 +26,7 @@ export interface ServicePageProps {
   heroTitle: string;
   heroSubtitle: string;
   heroBadge: string;
+  heroImage?: string;
   intro: string;
   sections: ServiceSection[];
   doctorName: string;
@@ -42,6 +44,7 @@ export function ServicePageLayout({
   heroTitle,
   heroSubtitle,
   heroBadge,
+  heroImage,
   intro,
   sections,
   doctorName,
@@ -118,6 +121,21 @@ export function ServicePageLayout({
 
       {/* ── HERO ── */}
       <section className={`relative overflow-hidden bg-gradient-to-br ${a.heroBg} pt-16 pb-10 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20`}>
+        {/* Hero Image Background */}
+        {heroImage && (
+          <>
+            <div className="absolute inset-0">
+              <Image
+                src={heroImage}
+                alt={heroTitle}
+                fill
+                className="object-cover opacity-20"
+                priority
+              />
+            </div>
+            <div className={`absolute inset-0 bg-gradient-to-br ${a.heroBg} opacity-90`} />
+          </>
+        )}
         {/* decorative circles */}
         <div className={`absolute -top-20 -right-20 w-96 h-96 rounded-full ${a.heroAccent} blur-3xl pointer-events-none`} />
         <div className={`absolute bottom-0 left-0 w-72 h-72 rounded-full ${a.heroAccent} blur-3xl pointer-events-none`} />

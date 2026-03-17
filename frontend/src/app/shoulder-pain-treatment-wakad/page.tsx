@@ -18,7 +18,8 @@ export default function ShoulderPainPage() {
     <ServicePageLayout
       heroBadge="Orthopaedic Care"
       heroTitle="Shoulder Pain Treatment in Wakad, Pune"
-      heroSubtitle="Expert treatment for frozen shoulder, rotator cuff injuries, and shoulder instability by Dr. Rahul Kalekar at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroSubtitle="Expert shoulder pain diagnosis and treatment by Dr. Rahul Kalekar — rotator cuff repairs, frozen shoulder, and instability management at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroImage="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=80"
       intro="Shoulder pain is a highly debilitating condition that can restrict even the simplest daily tasks like lifting, dressing, or reaching overhead. The shoulder joint has the greatest range of motion of any joint in the body, making it vulnerable to a variety of injuries and degenerative conditions. Dr. Rahul Kalekar, an orthopaedic specialist at Kalekar's Star Clinic in Wakad, provides accurate diagnosis and effective treatment for all types of shoulder conditions — helping patients regain full, pain-free movement."
       sections={[
         {

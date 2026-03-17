@@ -18,7 +18,8 @@ export default function KneePainPage() {
     <ServicePageLayout
       heroBadge="Orthopaedic Care"
       heroTitle="Knee Pain Treatment in Wakad, Pune"
-      heroSubtitle="Comprehensive diagnosis and treatment for knee pain, arthritis, and ligament injuries by Dr. Rahul Kalekar at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroSubtitle="Comprehensive knee pain diagnosis and treatment by Dr. Rahul Kalekar — from physiotherapy to advanced knee replacement surgery at Kalekar's Star Ortho & Women Care Clinic, Wakad."
+      heroImage="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=1920&q=80"
       intro="Knee pain is one of the most frequent orthopaedic complaints among patients in Wakad and across Pune. The knee joint bears the full weight of your body during walking, climbing, and everyday activities, making it highly susceptible to injury and degeneration. Dr. Rahul Kalekar, an experienced orthopedic doctor in Wakad, provides accurate diagnosis and effective treatment for all types of knee conditions — from mild inflammation to complex surgical cases."
       sections={[
         {
