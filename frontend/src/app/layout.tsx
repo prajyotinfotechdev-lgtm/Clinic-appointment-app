@@ -69,9 +69,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/logo.png',
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
     shortcut: '/logo.png',
-    apple: '/logo.png',
+    apple: { url: '/logo.png', sizes: '180x180', type: 'image/png' },
   },
   openGraph: {
     type: 'website',
@@ -121,8 +124,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
         <meta name="geo.region" content="IN-MH" />
         <meta name="geo.placename" content="Wakad, Pune" />
         <meta name="geo.position" content="18.6123;73.7654" />
