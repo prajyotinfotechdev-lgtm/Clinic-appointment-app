@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, MapPin, Clock, ChevronRight, ChevronLeft, CheckCircle, Shield, Award, Heart, Star, Video, Users, TrendingUp, AlertCircle, ChevronDown, Activity, Stethoscope, Baby } from "lucide-react";
+import { ArrowRight, Phone, MapPin, Clock, ChevronRight, ChevronLeft, CheckCircle, Shield, Award, Heart, Video, Users, TrendingUp, AlertCircle, ChevronDown, Activity, Stethoscope, Baby } from "lucide-react";
 import { SiteNav } from "@/components/clinic/SiteNav";
 import { SiteFooter } from "@/components/clinic/SiteFooter";
 import { BookingModal } from "@/components/clinic/BookingModal";
@@ -52,36 +52,6 @@ const marqueeItems = [
   "Knee Pain Treatment", "Joint Preservation", "Women's Health Clinic Wakad",
 ];
 
-const testimonials = [
-  {
-    name: "Priya Sharma",
-    condition: "PCOS Treatment",
-    rating: 5,
-    text: "Dr. Aparna Kalekar's expertise in treating PCOS has been life-changing. Her personalized approach and care made all the difference. Highly recommended!",
-    date: "2 weeks ago"
-  },
-  {
-    name: "Rajesh Patil",
-    condition: "Knee Pain Treatment",
-    rating: 5,
-    text: "After suffering from knee pain for years, Dr. Rahul Kalekar provided the perfect treatment plan. I'm now pain-free and back to my active lifestyle!",
-    date: "1 month ago"
-  },
-  {
-    name: "Sneha Deshmukh",
-    condition: "Pregnancy Care",
-    rating: 5,
-    text: "The entire pregnancy journey was smooth and stress-free thanks to Dr. Aparna. Her compassionate care and expertise gave us complete peace of mind.",
-    date: "3 weeks ago"
-  },
-  {
-    name: "Amit Kulkarni",
-    condition: "Sports Injury",
-    rating: 5,
-    text: "As an athlete, I needed expert care for my shoulder injury. Dr. Rahul's treatment got me back on the field faster than I expected. Excellent doctor!",
-    date: "2 months ago"
-  }
-];
 
 const faqs = [
   {
@@ -777,53 +747,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════ TESTIMONIALS ══════════════ */}
-      <section className="py-16 sm:py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14 lg:mb-20">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-teal-100 rounded-full shadow-sm mb-5 sm:mb-6">
-              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-              <span className="text-[10px] sm:text-[11px] font-extrabold text-teal-700 uppercase tracking-widest">Patient Reviews</span>
-            </div>
-            <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] px-4">
-              What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">Patients Say</span>
-            </h2>
-            <p className="text-slate-500 mt-5 sm:mt-6 text-sm sm:text-base lg:text-[17px] leading-relaxed px-4">
-              Real experiences from real patients who trusted us with their healthcare.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
-            {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div className="flex items-center gap-1 mb-5">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 fill-yellow-500" />
-                  ))}
-                </div>
-                <p className="text-slate-700 leading-[1.7] mb-6 text-sm sm:text-base font-medium">
-                  &ldquo;{testimonial.text}&rdquo;
-                </p>
-                <div className="flex items-center justify-between pt-5 border-t border-slate-100">
-                  <div>
-                    <div className="font-extrabold text-slate-900 text-sm sm:text-base">{testimonial.name}</div>
-                    <div className="text-xs sm:text-sm text-teal-600 font-bold mt-0.5">{testimonial.condition}</div>
-                  </div>
-                  <div className="text-[10px] sm:text-xs text-slate-400 font-medium">{testimonial.date}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-10 sm:mt-12">
-            <a href="https://www.google.com/search?q=dr+kalekar+star+clinic+reviews" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-teal-600 text-teal-700 font-bold rounded-xl hover:bg-teal-50 transition-all">
-              <Star className="w-4 h-4" /> Read More Reviews on Google
-            </a>
-          </div>
-        </div>
-      </section>
-
+      
       {/* ══════════════ FAQ ══════════════ */}
       <section className="py-16 sm:py-20 lg:py-32 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
