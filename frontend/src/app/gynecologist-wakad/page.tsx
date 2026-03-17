@@ -19,7 +19,6 @@ export default function GynecologistPage() {
       heroBadge="Women's Health"
       heroTitle="Best Gynecologist in Wakad, Pune"
       heroSubtitle="Comprehensive gynecology consultation and women's health care by Dr. Aparna Kalekar (MBBS, MS OBGY) at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1920&q=80"
       intro="Regular gynaecological consultations are an essential part of every woman's health routine — yet many women in Wakad and Pune delay or avoid these check-ups due to hesitation or lack of awareness. Dr. Aparna Kalekar, one of the best gynaecologists in Wakad, provides a safe, empathetic, and professional environment where women can openly discuss their health concerns. From adolescence through menopause, our women's care clinic in Wakad supports every stage of a woman's life."
       sections={[
         {

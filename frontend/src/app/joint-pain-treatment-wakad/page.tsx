@@ -19,7 +19,6 @@ export default function JointPainPage() {
       heroBadge="Orthopaedic Care"
       heroTitle="Joint Pain Treatment in Wakad, Pune"
       heroSubtitle="Expert diagnosis and treatment for all types of joint pain by Dr. Rahul Kalekar, experienced Orthopaedic Specialist at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1920&q=80"
       intro="Joint pain is one of the most common conditions affecting people across all age groups in Wakad and Pune. Whether caused by arthritis, injury, overuse, or age-related degeneration, untreated joint pain can severely impact your quality of life. At Kalekar's Star Ortho & Women Care Clinic in Wakad, Dr. Rahul Kalekar provides comprehensive evaluation and personalised treatment to relieve joint pain and restore full mobility."
       sections={[
         {

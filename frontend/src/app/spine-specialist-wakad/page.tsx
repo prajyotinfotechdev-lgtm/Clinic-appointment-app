@@ -19,7 +19,6 @@ export default function SpinePage() {
       heroBadge="Orthopaedic Care"
       heroTitle="Spine Specialist in Wakad, Pune"
       heroSubtitle="Expert spine care and back pain treatment by Dr. Rahul Kalekar — treating disc herniation, sciatica, and spinal deformities at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1920&q=80"
       intro="Back and spine problems are increasingly common among working professionals, elderly individuals, and active adults in Wakad and Pune. Whether it is a dull aching lower back or sharp radiating pain from a disc problem, spinal conditions can severely disrupt daily life. Dr. Rahul Kalekar, a qualified spine specialist and orthopedic doctor in Wakad, offers comprehensive assessment and personalised treatment for all spinal conditions — from conservative physiotherapy to surgical care."
       sections={[
         {

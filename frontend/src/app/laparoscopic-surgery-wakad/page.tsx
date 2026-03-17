@@ -19,7 +19,6 @@ export default function LaparoscopicSurgeryPage() {
       heroBadge="Women's Health"
       heroTitle="Laparoscopic Surgery in Wakad, Pune"
       heroSubtitle="Minimally invasive laparoscopic surgery for ovarian cysts, fibroids, endometriosis by Dr. Aparna Kalekar at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920&q=80"
       intro="Laparoscopic surgery, also known as keyhole surgery or minimally invasive surgery, has revolutionised the treatment of many gynaecological conditions. Instead of large incisions, tiny cuts (5–10mm) are made, through which a thin camera and surgical instruments are inserted. This results in significantly less post-operative pain, minimal scarring, shorter hospital stay, and faster return to normal activities. Dr. Aparna Kalekar, an experienced laparoscopic gynaecological surgeon in Wakad, Pune, performs a range of advanced laparoscopic procedures to treat conditions that previously required open surgery."
       sections={[
         {

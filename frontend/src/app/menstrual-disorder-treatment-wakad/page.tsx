@@ -19,7 +19,6 @@ export default function MenstrualDisorderPage() {
       heroBadge="Women's Health"
       heroTitle="Menstrual Disorder Treatment in Wakad, Pune"
       heroSubtitle="Expert treatment for irregular periods, heavy bleeding, dysmenorrhea, and endometriosis by Dr. Aparna Kalekar at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1584515933487-779824d29309?w=1920&q=80"
       intro="Menstrual disorders are among the most common yet frequently overlooked health concerns affecting women in Wakad and Pune. Irregular periods, heavy or painful bleeding, or the complete absence of periods are not just inconveniences — they can signal underlying hormonal, structural, or systemic conditions that require proper diagnosis and treatment. Dr. Aparna Kalekar, a specialist gynaecologist in Wakad, provides comprehensive evaluation and effective treatment to restore healthy menstrual cycles and improve quality of life."
       sections={[
         {

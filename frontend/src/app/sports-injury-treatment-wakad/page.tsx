@@ -19,7 +19,6 @@ export default function SportsInjuryPage() {
       heroBadge="Orthopaedic Care"
       heroTitle="Sports Injury Treatment in Wakad, Pune"
       heroSubtitle="Specialized sports injury care by Dr. Rahul Kalekar — treating ACL tears, meniscus injuries, ligament sprains, and muscle strains at Kalekar's Star Ortho & Women Care Clinic, Wakad."
-      heroImage="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80"
       intro="Sports injuries are common among athletes, gym enthusiasts, and active individuals across Wakad and Pune. Whether you play cricket, football, badminton, or engage in regular fitness activities, injuries can occur suddenly and may sideline you for weeks if not treated properly. Dr. Rahul Kalekar, an experienced orthopedic sports injury specialist in Wakad, provides expert care for all acute and chronic sports-related injuries — from initial diagnosis to full rehabilitation."
       sections={[
         {
